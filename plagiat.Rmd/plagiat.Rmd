@@ -32,7 +32,7 @@ Jacob Foster
 
 UCLA Sociology
 
-8,339 words.
+8,378 words.
 
 SOCIOCULTURAL BOUNDARIES AND THE SURVIVAL OF KNOWLEDGE
 
@@ -158,7 +158,9 @@ POC is better thought of as a theory that is correct within certain scope condit
 
 *Dynamic Density*.
 
-*Three Methods*
+*Three Methods* If there is a nuance to be found in this work it is to pay greater attention to the problem of establishing the units of analysis.
+
+*Bounding Methods*. Sociologists tend to decide unit boundaries definitionally, which is to say non-metrically.
 
 *Community Detection*. All community detection methods assumes that ties are driven by an unobserved set of groups and each proposes a procedure to uncover those groups. What is really being interrogated in each case is the existence of boundaries between sets of nodes. One set of methods uses the modularity measure introduced by {REF} to adjudicate among proposed boundary configurations. Modularity 
 
@@ -181,6 +183,12 @@ An additional methodological difficulty is the fact that the algorithm does not 
 *k-clique percolation*. k-clique percolation, which has several advantages. First, unlike modularity-based methods that use randomization, clique percolation is determinate and reproducible, like the link-community method utilizing the tanimoto coefficient. It is reasonably fast on large networks. It is also well-suited to the design of a co-reference network, in which the reference page of an article is represented as a k-clique of citations where k is equal to the number of references.
 
 Construction of
+
+*Topic Modeling*.
+
+*Analytical Methods*.
+
+*Survival Analysis*.
 
 ### **AN EMPIRICAL APPROACH** ###
 
