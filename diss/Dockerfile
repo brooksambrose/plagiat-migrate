@@ -4,12 +4,12 @@ MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 ## Install utilities
 RUN apt-get update \ 
 	&& apt-get install -y --no-install-recommends \
-		git /
+		git \
 		subversion
 
 ## Install igraph
 RUN apt-get install -y --no-install-recommends \
-		libigraph0v5 /
+		libigraph0v5 \
 		libigraph0-dev
 
 ## Install cosparallel
@@ -25,7 +25,7 @@ RUN (cd ~/ \
 RUN add-apt-repository ppa:hvr/ghc \
 	&& apt-get update \ 
 	&& apt-get install -y --no-install-recommends \
-		ghc-7.8.3 /
+		ghc-7.8.3 \
 		cabal-install-1.20 \
 	&& cabal update \
 	&& cabal install scholdoc \
@@ -94,7 +94,7 @@ RUN install2.r --error \
 	rvest \
 	rzmq \
 	scales \
-	scatterplot3d\
+	scatterplot3d \
 	SnowballC \
 	stargazer \
 	statnet \
