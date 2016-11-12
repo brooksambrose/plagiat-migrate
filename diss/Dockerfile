@@ -6,7 +6,10 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		git \
 		subversion \
-		software-properties-common
+		software-properties-common \
+
+## Install littler
+RUN Rscript -e 'install.packages("littler",repos="https://cran.cnr.berkeley.edu/")'
 
 ## Install igraph
 RUN apt-get install -y --no-install-recommends \
@@ -23,14 +26,14 @@ RUN (cd ~/ \
 	&& make)
 
 ## Install scholdoc http://scholdoc.scholarlymarkdown.com/
-RUN add-apt-repository ppa:hvr/ghc \
-	&& apt-get update \ 
-	&& apt-get install -y --no-install-recommends \
-		ghc-7.8.3 \
-		cabal-install-1.20 \
-	&& cabal update \
-	&& cabal install scholdoc \
-	&& cabal install scholdoc-citeproc
+#RUN add-apt-repository ppa:hvr/ghc \
+#	&& apt-get update \ 
+#	&& apt-get install -y --no-install-recommends \
+#		ghc-7.8.3 \
+#		cabal-install-1.20 \
+#	&& cabal update \
+#	&& cabal install scholdoc \
+#	&& cabal install scholdoc-citeproc
 
 ## Install R packages
 RUN install2.r --error \
@@ -112,6 +115,7 @@ RUN install2.r --error \
 	wordcloud \
 	XML \
 	zoo
+
 
 ## clone git repos
 RUN git clone https://github.com/brooksambrose/clique-percolation
