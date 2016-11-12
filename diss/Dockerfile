@@ -10,7 +10,7 @@ RUN apt-get update \
 
 ## Install igraph
 RUN apt-get install -y --no-install-recommends \
-		libigraph0v5 \
+		libigraph0 \
 		libigraph0-dev
 
 ## Install cosparallel
