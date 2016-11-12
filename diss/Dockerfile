@@ -1,11 +1,12 @@
-FROM rocker/r-base:latest
+FROM rocker/verse:3.3.2
 MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 
 ## Install utilities
-RUN apt-get update \ 
+RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		git \
-		subversion
+		subversion \
+		software-properties-common
 
 ## Install igraph
 RUN apt-get install -y --no-install-recommends \
