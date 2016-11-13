@@ -1,4 +1,4 @@
-FROM rocker/verse:3.3.2
+FROM rocker/tidyverse:3.3.2
 MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 
 ## Install utilities
@@ -6,10 +6,8 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		git \
 		subversion \
-		software-properties-common \
+		software-properties-common
 
-## Install littler
-RUN Rscript -e 'install.packages("littler",repos="https://cran.cnr.berkeley.edu/")'
 
 ## Install igraph
 RUN apt-get install -y --no-install-recommends \
@@ -34,6 +32,14 @@ RUN (cd ~/ \
 #	&& cabal update \
 #	&& cabal install scholdoc \
 #	&& cabal install scholdoc-citeproc
+
+## Install littler
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends \
+		libbz2-dev \
+		liblzma-dev \
+		libpcre3-dev \
+	&& Rscript -e 'install.packages("littler",repos="https://cran.cnr.berkeley.edu/")' 
 
 ## Install R packages
 RUN install2.r --error \
