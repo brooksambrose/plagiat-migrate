@@ -26,16 +26,14 @@ RUN (cd ~/ \
 	&& make)
 
 ## Install scholdoc http://scholdoc.scholarlymarkdown.com/
-#RUN add-apt-repository ppa:hvr/ghc \
-#	&& apt-get update \ 
-#	&& apt-get install -y --no-install-recommends \
-#		ghc-7.8.3 \
-#		cabal-install-1.20 \
-#	&& cabal update \
-#	&& cabal install scholdoc \
-#	&& cabal install scholdoc-citeproc
-
-
+RUN add-apt-repository -y ppa:hvr/ghc \
+	&& apt-get update \ 
+	&& apt-get install -y --no-install-recommends \
+		ghc \
+		cabal-install \
+	&& cabal update \
+	&& cabal install scholdoc \
+	&& cabal install scholdoc-citeproc
 
 ## clone git repos
 RUN cd ~ && git clone https://github.com/brooksambrose/clique-percolation
