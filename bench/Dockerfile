@@ -25,15 +25,12 @@ RUN (cd ~/ \
 	&& cd extras \
 	&& make)
 
-## Install scholdoc http://scholdoc.scholarlymarkdown.com/
-RUN add-apt-repository -y ppa:hvr/ghc \
-	&& apt-get update \ 
-	&& apt-get install -y --no-install-recommends \
+## Install scholdoc https://github.com/timtylin/scholdoc/blob/master/INSTALL.md
+RUN apt-get install -y --no-install-recommends \
 		ghc \
 		cabal-install \
 	&& cabal update \
-	&& cabal install scholdoc \
-	&& cabal install scholdoc-citeproc
+	&& cabal install scholdoc
 
 ## clone git repos
 RUN cd ~ && git clone https://github.com/brooksambrose/clique-percolation
