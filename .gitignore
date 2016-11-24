@@ -1,3 +1,5 @@
 *.Rapp.history
 *.Rhistory
 *.graffle
+~/*
+test/*

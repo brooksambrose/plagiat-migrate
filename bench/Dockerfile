@@ -1,15 +1,14 @@
 FROM rocker/verse:3.3.2
 MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 
-## Install utilities
+## Install system utilities
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		git \
+		libbz2-dev \
+		liblzma-dev \
+		libpcre3-dev \
 		subversion \
 		software-properties-common
-
-## Install R packages
-RUN Rscript -e "install.packages(c('alluvial','bit64','cluster','colorspace','d3Network','data.table','DBI','dendextend','doParallel','entropy','fastcluster','fitdistrplus','foreach','fpc','gdata','ggbiplot','httr','igraph','ineq','latentnet','lattice','LDAvis','lineprof','linkcomm','logspline','lsa','magrittr','mallet','matrixStats','mclust','network','ngramr','NLP','openNLP','parallel','pvclust','qdap','qdapDictionaries','qtl','RCurl','rdd','rgl','RGoogleDocs','RGoogleDrive','RQDA','RSQLite','RTextTools','rvest','rzmq','scales','scatterplot3d','SnowballC','stargazer','statnet','stats','stm','stmBrowser','stmCorrViz','stringdist','strucchange','SuperLearner','tm','tools','venneuler','wordcloud','XML','zoo'),dep=T,repo=getOption('repos')[['MRAN']])"
 
 ## Install igraph
 RUN apt-get install -y --no-install-recommends \
@@ -32,9 +31,111 @@ RUN apt-get install -y --no-install-recommends \
 	&& cabal update \
 	&& cabal install scholdoc
 
-## clone git repos
-RUN cd ~ && git clone https://github.com/brooksambrose/clique-percolation
+## R packages: utilities
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	bit64 \
+	colorspace \
+	data.table \
+	doParallel \
+	fastcluster \
+	foreach \
+	httr \
+	lineprof \
+	magrittr \
+	RCurl \
+	SnowballC \
+	XML \
+&& r -e 'warnings()'
 
-## test
+## R packages: networks
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	bipartite \
+	d3Network \
+	igraph \
+	latentnet \
+	linkcomm \
+	statnet \
+&& r -e 'warnings()'
+
+
+## R packages: text analysis
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	LDAvis \
+	mallet \
+	NLP \
+	openNLP \
+	qdap \
+	qdapDictionaries \
+	RTextTools \
+	stm \
+	stmBrowser \
+	stmCorrViz \
+	stringdist \
+	tm \
+&& r -e 'warnings()'
+
+
+## R packages: other stats
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	alluvial \
+	cluster \
+	dendextend \
+	entropy \
+	fitdistrplus \
+	ineq \
+	lattice \
+	logspline \
+	matrixStats \
+	mclust \
+	pvclust \
+	RQDA \
+	SuperLearner \
+	zoo \
+&& r -e 'warnings()'
+
+
+## R packages: graphics and typesetting
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	ggbiplot \
+	rgl \
+	scatterplot3d \
+	stargazer \
+	venneuler \
+	wordcloud \
+&& r -e 'warnings()'
+
+
+## R packages: APIs
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	ngramr \
+	RGoogleDocs \
+	RGoogleDrive \
+	RSQLite \
+&& r -e 'warnings()'
+
+
+## R packages: uncategorized
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	DBI \
+	fpc \
+	gdata \
+	lsa \
+	qtl \
+	rdd \
+	rvest \
+	rzmq \
+	scales \
+	strucchange \
+&& r -e 'warnings()'
+
+
+## ~fin~
 CMD ["bash"]
 
