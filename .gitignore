@@ -3,3 +3,4 @@
 *.graffle
 ~/*
 test/*
+.Rproj.user

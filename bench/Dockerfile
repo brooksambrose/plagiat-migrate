@@ -135,7 +135,6 @@ RUN export `cat etc/environment | grep MRAN` \
 	strucchange \
 && r -e 'warnings()'
 
-
-## ~fin~
-CMD ["bash"]
+## ~fin~ run in -d detached mode and open rstudio server at localhost:8080
+CMD ["\init"]
 
