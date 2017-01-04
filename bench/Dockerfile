@@ -1,19 +1,28 @@
 FROM rocker/verse:3.3.2
 MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 
+## Install rJava from apt-get
+#RUN apt-get install -y r-cran-rjava
+
+## Install Java and tell R where it is
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	openjdk-7-jre \
+&& R CMD javareconf
+
+
 ## Install system utilities
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
-		libbz2-dev \
-		liblzma-dev \
-		libpcre3-dev \
-		subversion \
-		software-properties-common
+&& apt-get install -y --no-install-recommends \
+#	libbz2-dev \
+#	liblzma-dev \
+#	libpcre3-dev \
+	subversion \
+	software-properties-common
 
 ## Install igraph
 RUN apt-get install -y --no-install-recommends \
-		libigraph0 \
-		libigraph0-dev
+	libigraph0 \
+	libigraph0-dev
 
 ## Install cosparallel
 RUN (cd ~/ \
@@ -26,10 +35,10 @@ RUN (cd ~/ \
 
 ## Install scholdoc https://github.com/timtylin/scholdoc/blob/master/INSTALL.md
 RUN apt-get install -y --no-install-recommends \
-		ghc \
-		cabal-install \
-	&& cabal update \
-	&& cabal install scholdoc
+	ghc \
+	cabal-install \
+&& cabal update \
+&& cabal install scholdoc
 
 ## R packages: utilities
 RUN export `cat etc/environment | grep MRAN` \
@@ -45,7 +54,6 @@ RUN export `cat etc/environment | grep MRAN` \
 	magrittr \
 	RCurl \
 	SnowballC \
-	XML \
 && r -e 'warnings()'
 
 ## R packages: networks
@@ -59,24 +67,27 @@ RUN export `cat etc/environment | grep MRAN` \
 	statnet \
 && r -e 'warnings()'
 
-
 ## R packages: text analysis
 RUN export `cat etc/environment | grep MRAN` \
 && install2.r --repos $MRAN --deps TRUE \
 	LDAvis \
 	mallet \
-	NLP \
 	openNLP \
 	qdap \
-	qdapDictionaries \
 	RTextTools \
 	stm \
 	stmBrowser \
 	stmCorrViz \
 	stringdist \
-	tm \
+&& Rscript -e 'devtools::install_github("benmarwick/JSTORr")' \
 && r -e 'warnings()'
 
+## R packages: time series
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	lmtest \
+	forecast \
+&& r -e 'warnings()'
 
 ## R packages: other stats
 RUN export `cat etc/environment | grep MRAN` \
@@ -97,7 +108,6 @@ RUN export `cat etc/environment | grep MRAN` \
 	zoo \
 && r -e 'warnings()'
 
-
 ## R packages: graphics and typesetting
 RUN export `cat etc/environment | grep MRAN` \
 && install2.r --repos $MRAN --deps TRUE \
@@ -107,18 +117,16 @@ RUN export `cat etc/environment | grep MRAN` \
 	stargazer \
 	venneuler \
 	wordcloud \
+	formatR \
 && r -e 'warnings()'
-
 
 ## R packages: APIs
 RUN export `cat etc/environment | grep MRAN` \
 && install2.r --repos $MRAN --deps TRUE \
-	ngramr \
-	RGoogleDocs \
-	RGoogleDrive \
 	RSQLite \
+&& Rscript -e 'devtools::install_github("seancarmody/ngramr")' \
+&& Rscript -e 'devtools::install_github("1beb/RGoogleDrive")' \
 && r -e 'warnings()'
-
 
 ## R packages: uncategorized
 RUN export `cat etc/environment | grep MRAN` \
@@ -135,6 +143,8 @@ RUN export `cat etc/environment | grep MRAN` \
 	strucchange \
 && r -e 'warnings()'
 
-## ~fin~ run in -d detached mode and open rstudio server at localhost:8080
+## R packages: hastily added
+
+## ~fin~ to use run in -d detached mode and open rstudio server at localhost:8080
 CMD ["\init"]
 
