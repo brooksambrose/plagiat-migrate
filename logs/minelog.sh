@@ -42,5 +42,21 @@ Cannot find
 '
 cat '/Users/bambrose/Dropbox/GitHub/hos/plagiat/logs/bench.log' | grep 'cannot find'
 
-apt-get install -y apt-file && apt-file update
-apt-file search
+# Not found
+echo '
+Not found
+'
+cat '/Users/bambrose/Dropbox/GitHub/hos/plagiat/logs/bench.log' | grep 'not found'
+
+# Not found
+echo '
+Missing
+'
+cat '/Users/bambrose/Dropbox/GitHub/hos/plagiat/logs/bench.log' | grep '[Mm]issing'
+
+
+# Resolve
+echo 'Check package dependencies at https://packages.debian.org/jessie/gnu-r/r-cran-'
+
+#apt-get install -y apt-file && apt-file update
+#apt-file search

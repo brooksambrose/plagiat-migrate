@@ -1,22 +1,11 @@
 FROM rocker/verse:3.3.2
 MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 
-## Install rJava from apt-get
-#RUN apt-get install -y r-cran-rjava
+### Heavier stuff ###
 
-## Install Java and tell R where it is
-RUN apt-get update && apt-get install -y --no-install-recommends \
-	openjdk-7-jre \
-&& R CMD javareconf
-
-
-## Install system utilities
+## Install that thing Aaron told me to that is big and has python
 RUN apt-get update \
 && apt-get install -y --no-install-recommends \
-#	libbz2-dev \
-#	liblzma-dev \
-#	libpcre3-dev \
-	subversion \
 	software-properties-common
 
 ## Install igraph
@@ -24,21 +13,46 @@ RUN apt-get install -y --no-install-recommends \
 	libigraph0 \
 	libigraph0-dev
 
-## Install cosparallel
-RUN (cd ~/ \
-	&& svn checkout svn://svn.code.sf.net/p/cosparallel/code/trunk cosparallel-code \
-	&& cd cosparallel-code \
-	&& ./configure \
-	&& make \
-	&& cd extras \
-	&& make)
+## Install Java and libraries to build rJava
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	liblzma-dev \
+	libbz2-dev \
+	libicu-dev \
+	default-jdk
 
-## Install scholdoc https://github.com/timtylin/scholdoc/blob/master/INSTALL.md
-RUN apt-get install -y --no-install-recommends \
-	ghc \
-	cabal-install \
-&& cabal update \
-&& cabal install scholdoc
+### R packages ###
+
+## R package prereqs
+RUN apt-get update && apt-get install -y --no-install-recommends \
+# topicmodels
+	libgsl0-dev \
+# rgl
+	libgl1-mesa-glx \
+	libglu1-mesa-dev \
+# cairoDevice
+	libcairo2 \
+# RGtk2
+	libgtk2.0-dev \
+	libatk1.0-0 \
+# rzmq
+	libzmq3 \
+	libzmq3-dev
+
+## Install cairoDevice & RQDA through X virtual frame buffer to allow gui test loading of cairoDevice to pass
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	xvfb \
+&& export `cat etc/environment | grep MRAN` \
+&& xvfb-run install2.r --repos $MRAN --deps TRUE \
+	cairoDevice \
+	RQDA \
+&& r -e 'warnings()'
+	
+## Tell R where Java is, then test install rJava
+RUN R CMD javareconf \
+&& export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	rJava \
+&& r -e 'warnings()'
 
 ## R packages: utilities
 RUN export `cat etc/environment | grep MRAN` \
@@ -71,7 +85,6 @@ RUN export `cat etc/environment | grep MRAN` \
 RUN export `cat etc/environment | grep MRAN` \
 && install2.r --repos $MRAN --deps TRUE \
 	LDAvis \
-	mallet \
 	openNLP \
 	qdap \
 	RTextTools \
@@ -103,7 +116,6 @@ RUN export `cat etc/environment | grep MRAN` \
 	matrixStats \
 	mclust \
 	pvclust \
-	RQDA \
 	SuperLearner \
 	zoo \
 && r -e 'warnings()'
@@ -126,6 +138,7 @@ RUN export `cat etc/environment | grep MRAN` \
 	RSQLite \
 && Rscript -e 'devtools::install_github("seancarmody/ngramr")' \
 && Rscript -e 'devtools::install_github("1beb/RGoogleDrive")' \
+&& Rscript -e 'devtools::install_github("mikeasilva/blsAPI")' \
 && r -e 'warnings()'
 
 ## R packages: uncategorized
@@ -143,8 +156,41 @@ RUN export `cat etc/environment | grep MRAN` \
 	strucchange \
 && r -e 'warnings()'
 
-## R packages: hastily added
 
-## ~fin~ to use run in -d detached mode and open rstudio server at localhost:8080
+### Small useful stuff ###
+
+## Install cosparallel
+RUN apt-get update \
+&& apt-get install -y --no-install-recommends \
+	subversion \
+&& (cd ~/ \
+	&& svn checkout svn://svn.code.sf.net/p/cosparallel/code/trunk cosparallel-code \
+	&& cd cosparallel-code \
+	&& ./configure \
+	&& make \
+	&& cd extras \
+	&& make)
+
+## Install latexpand
+RUN apt-get update \
+&& apt-get install -y --no-install-recommends \
+	perl-doc \
+&& (cd ~/ \
+	&& git clone https://gitlab.com/latexpand/latexpand \
+	&& cd latexpand \
+	&& make \
+	&& mv dist/latexpand /usr/local/bin)
+
+## Install scholdoc https://github.com/timtylin/scholdoc/blob/master/INSTALL.md
+#RUN apt-get install -y --no-install-recommends \
+#	ghc \
+#	cabal-install \
+#&& cabal update \
+#&& cabal install scholdoc
+
+
+### ~fin~ ###
+
+# to use run in -d detached mode and open rstudio server at localhost:8080
 CMD ["\init"]
 
