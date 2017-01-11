@@ -40,6 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ## Install cairoDevice & RQDA through X virtual frame buffer to allow gui test loading of cairoDevice to pass
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	xauth \
 	xvfb \
 && export `cat etc/environment | grep MRAN` \
 && xvfb-run install2.r --repos $MRAN --deps TRUE \
@@ -174,12 +175,12 @@ RUN apt-get update \
 ## Install latexpand
 RUN apt-get update \
 && apt-get install -y --no-install-recommends \
-	perl-doc \
-&& (cd ~/ \
+	perl-doc
+RUN (cd ~/ \
 	&& git clone https://gitlab.com/latexpand/latexpand \
 	&& cd latexpand \
 	&& make \
-	&& mv dist/latexpand /usr/local/bin)
+	&& mv dist/latexpand/latexpand /usr/local/bin)
 
 ## Install scholdoc https://github.com/timtylin/scholdoc/blob/master/INSTALL.md
 #RUN apt-get install -y --no-install-recommends \
