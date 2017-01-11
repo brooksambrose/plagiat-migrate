@@ -1,0 +1,7 @@
+```{r init,message=F,warning=F,include=F}
+source('~/wrk/flw/init.R')
+```
+
+#Plagiat
+
+#Reproducible Software Container

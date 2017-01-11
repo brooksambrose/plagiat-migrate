@@ -1,0 +1,648 @@
+```{r init,message=F,warning=F,include=F}
+source('~/wrk/flw/init.R')
+opts_chunk$set(echo=T)
+```
+
+- k-Clique Percolation Clustering of Co-reference Network
+
+
+```{r}
+as.vector(lsf.str())
+```
+
+```{r}
+cb<-readLines('../flw/codebase.txt')
+head(cb)
+cb<-data.table(do.call(rbind,strsplit(cb,': ')))
+cb[,`:=`(
+	path=sub(':.+','',V1)
+	,line=as.integer(sub('^[^:]+:','',V1))
+	,file=sub(':.+','',sub('^.+/','',V1))
+	,ob=regmatches(V2,regexpr('[A-Za-z0-9.-_]+\\.f[(<=]',V2))
+	)]
+cb[,.N,by=c('file','ob')]
+cb[grep('wok',ob),list(V1,V2)]
+```
+
+# Introduction
+
+This appendix explains the research procedures used to produce tables and figures in *Productions of Culture: Knowledge Survival in Art and Science*.
+
+# Compiling Database from Source Records
+
+## Thomson Reuters Web of Knowledge
+
+Web of Knowledge (WOK) data that are available through regular subscriptions may be reported in a long, field-tagged, plain text format. The `wok2dbl.f` function recursively searches a directory for plain text batches of records and quickly imports them into R in a long format that may be easily queried. By default letter case standardization and deduplication by record ID is performed. The function returns a data.table object and optionally saves the same to the hard drive. Use of `data.table` provides accomodation for very large databases that perform poorly when treated as a `data.frame`.
+
+```{r wok2dbl-f}
+wok2dbl<-wok2dbl.f(
+	dir='../../mat/dd/wok0041'
+	,out='../../mat/dp'
+	,sample.batches=F
+	,sample.size=50
+	,save=T
+	,verbose=T
+	,check.for.saved.output=T
+)
+wok2dbl
+```
+
+By default the data.table is keyed by its WOK id (the "UT" field), then by the field. This makes querying easy. To see the authors of the first three articles, we might enter:
+
+
+```{r wok2dbl-usage1}
+(first.three<-unique(wok2dbl$id)[1:3])
+wok2dbl[list(id=first.three,field='AF')]
+```
+
+By default the value field is not keyed. While there are scenarios where this would be useful---e.g. for calling every record by a particular author, or every record in a particular year---keying also sorts the data.table, and the original sort order is important for fields like "TI" (title) which may be broken across several observations.
+
+The `wok2dbl` object remains in the long format of the original data source. We can see this by simply calling the `wok2dbl` object itself or by using `expand.grid` to query multiple keys at once. Here was ask for the source journal, publication year, number of references, and total citations for each of the first three records.
+
+```{r wok2dbl-usage2}
+wok2dbl[expand.grid(first.three,c('SO','PY','AU','NR'))]
+```
+
+To sort results by record instead of field:
+
+```{r wok2dbl-usage3}
+wok2dbl[rev(expand.grid(c('SO','PY','AU','NR'),first.three))]
+```
+
+It is convenient to keep the original source data in a long format and to reshape it as necessary for use in different methods. This will be discussed in the *Formatting* section below.
+
+## JSTOR Data for Research
+
+Where WOK data are superior for the study of citations, the JSTOR Data for Research (JSTOR) service provides much of the bibliographic information available in WOK and sometimes more accurately. This makes it useful as a cross reference when assessing the quality of a WOK sample, or for augmenting fields such as authors' names.
+
+In addition to the usual variables, JSTOR data also provide ngram frequencies. These data are very valuable and allow limited full-text analysis using "bag of words" methods. The `jstor2dbw.f` function imports dfr.jstor.org records directly from the compressed files returned by queries to the service. Parallelization of the importing process is available and suitable for systems with fast disks. The function performs a standard set of text pre-processing procedures (e.g. stemming and stop word, punctuation, digit and idiosyncratic word removal) on the ngram frequency tables contained in zip archives that include them. These ngram frequency tables are returned  in the indexed format expected by the `stm` package, and all other bibliographic data available are returned as a `data.table`. A character vector attribute called `vocab` is attached to which the indexes in the `jstor2dbw$bow` refer.
+
+```{r jstor2dbw-f}
+jstor2dbw<-jstor2dbw.f(
+	dir='../knowledge-survival/supplemental/dfr.jstor.org-1k-samples'
+	,out='out'
+	,sample.batches=T
+	,sample.size=1
+	,in.parallel=F
+	,drop.nchar1=T
+	,check.for.saved.output=T
+)
+```
+Inspecting the `jstor2dbw` object without bags of words ("bow") or abstracts reveals the standard information, and in the conventional wide, flat file format. The only complex value here is author, and multiple authors are listed with names separated by commas.
+
+```{r jstor2dbw-usage1}
+jstor2dbw[1:5,!c('bow','abstract'),with=F]
+```
+While the `bow` variable contains the indexed ngram frequency table, which indexes the `vocab` attribute of the jstor2dbw object.
+
+```{r jstor2dbw-usage2}
+jstor2dbw$bow[[1]][,1:5]
+attributes(jstor2dbw)$vocab[jstor2dbw$bow[[1]][1,1:5]]
+```
+
+# Identity Resolution
+
+Also known as named entity recognition, identity resolution is a data quality problem preventing the researcher from identifying the same thing with a unique label. This happens whenever variations of a label exist. As a consequence the researcher may fail to connect two events to the same thing. When correcting for low identity resolution, the opposite error may be introduced, where two different entities are erroneously treated as the same thing.
+
+The approach to identity resolution involves supervised machine learning. Because this method is not fully automatic it is difficult to implement as a straightforward routine. For now, the results of this analysis are exploited without a manual for conducting the resolution itself.
+
+```{r identity-resolution,echo=F}
+load('../knowledge-survival/pba.RData')
+load('../knowledge-survival/sl.RData')
+el<-list()
+for(i in names(pba)){
+pass<-pba[[i]]$dat$match
+el[[i]]<-pba[[i]]$dat[
+	#pass
+	,list(k,i,j)]
+el[[i]]<-el[[i]][,list(
+cr1=mapply(FUN=function(k,ij) sl[[k]][ij],k=k,ij=i)
+,cr2=mapply(FUN=function(k,ij) sl[[k]][ij],k=k,ij=j)
+)]
+el[[i]][,pred:=pba[[i]]$dat$pred]
+el[[i]][,k:=paste(i,pba[[i]]$dat$k,sep='')]
+}
+el<-rbindlist(el)
+el[,k:=factor(k)]
+setkey(el,k,cr1,cr2)
+netl<-el['A53361',list(cr1,cr2)]
+levs<-sort(unique(unlist(netl)))
+netl<-cbind(as.numeric(factor(netl$cr1,levels=levs)),as.numeric(factor(netl$cr2,levels=levs)))
+net<-graph.edgelist(matrix(netl,ncol=2), directed=F)
+V(net)$name<-levs
+ic<-infomap.community(net,e.weights=el['A53361']$pred)
+membership(ic)
+#comps<-decompose.graph(net,min.vertices=0)
+```
+
+
+# Formatting
+
+Depending on the analysis or data manipulation to be performed, the `wok2dbl` and `jstor2dbw` objects may need to be converted to a different format, including network formats, which allow us to take advantage of records containing information on multiple units.
+
+## Flat File
+
+The `reshape2` package makes it easy to return the wide or flat file format of a query of a `wok2dbl` object.
+
+```{r reshape}
+library(reshape2)
+dcast(
+	data=wok2dbl[expand.grid(first.three,c('SO','PY','NR','TC'))]
+	,formula=id~field
+	,fun.aggregate=list
+	,value.var='val'
+)
+```
+
+Many of the interesting fields in WOK records are complex, having multiple observations per record. Some are falsely complex, such as title (TI), which stores a single observation across several fields. Simple and falsely complex values are often trivial features of the document itself. Truely complex field usually store named entities to which the article is related. The most important complex fiels are author (AU and AF) and cited reference (CR). Source journal is an example of a named entity field that is always simple, because a document is only published in one source at a time, though it may have several authors and citations.
+
+```{r}
+wok2dbl[expand.grid(first.three,c('AU','CR'))]
+```
+
+## Network Formats
+
+The simplest network data format to work with is an edgelist. An edgelist typically has two columns, the name of the node sending an edge in the first column and that of the node receiving the edge in second column.
+
+### Bipartite Edgelist
+
+When considering the different relationships among things that could be treated as a network, the `wok2dbl` object is naturally in the format of a bipartite edgelist. For instance we may treat the sender as the paper (UT record id) and the receiver is the citation (CR) to create a citation network.
+
+```{r wok2dbl-format1}
+setkey(wok2dbl,field)
+wok2dbl['CR',!'field',with=F]
+```
+
+Or we could treat the author as the reciever to create a bipartite co-authorship network.
+
+```{r wok2dbl-format2}
+wok2dbl['AU',!'field',with=F]
+```
+However, because of several problems of identity resolution of the CR field in particular, we recommend using the `dbl2bel.f` utility, which normalizes citation codes through case transformation, removal of digital object identifiers, and deduplication. It also optionally allows for data reduction of citations by flagging citations referenced only once (pendants). A report of the results of pendant treatment is printed.
+
+```{r dbl2bel-f}
+load('../knowledge-survival/fuzzy-sets.RData')
+dbl2bel<-dbl2bel.f(
+	wok2dbl
+	,out='out'
+	,saved_recode=fuzzy.sets
+	)
+```
+
+The `dbl2bel` object is appropriate for import into methods designed for bipartite graphs. Because of the nature of record keeping, each complex unit is relateable to others only indirectly by virtue of common inclusion in an article-level record. With a few lines of code we could merge an article to author data.table to an article to citation data.table to yield an author to citation edgelist.
+
+```{r dbl2bel-usage1}
+aubel<-copy(wok2dbl)
+setkey(aubel,field)
+aubel<-aubel['AU',!'field',with=F]
+setnames(aubel,c('ut','au'))
+setkey(aubel,ut)
+setkey(dbl2bel,ut)
+```
+
+```{r dbl2bel-usage2}
+dbl2bel[aubel,list(au,cr)]
+```
+
+### Monopartite Edgelist
+
+A more common operation however is to reduce a bipartite graph to a monopartite graph. This is called a reprojection of the graph, and involves a trivial loss of data. Because many network methods assume monopartite data, we include the `bel2mel.f` utility. The function expects a two column matrix, so when choosing to drop pendants you must do so explicitly and leave off the pendant column.
+
+```{r bel2mel-f}
+source('../knowledge-survival/dissertation_source.R')
+load(paste(out,'dbl2bel.RData',sep=.Platform$file.sep))
+dbl2bel<-dbl2bel[!(dbl2bel$zpend|dbl2bel$zdup|dbl2bel$zloop),list(ut,zcr)]
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel/zcrel'
+	,type='crel'
+	,write2disk=F
+))/60
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel/zutel'
+	,type='utel'
+	,write2disk=F
+))
+load(paste(out,'dbl2bel.RData',sep=.Platform$file.sep))
+dbl2bel<-dbl2bel[!(dbl2bel$pend|dbl2bel$loop),list(ut,cr)]
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel/crel'
+	,type='crel'
+	,write2disk=F
+	))
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel/utel'
+	,type='utel'
+	,write2disk=F
+	))
+```
+
+```{r mel2cfinder-f}
+source('../knowledge-survival/dissertation_source.R')
+rm(bel2mel)
+system.time(load(paste('out/mel/zcrel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel/zcrel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel/zutel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel/zutel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel/crel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel/crel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel/utel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel/utel'
+))/60
+```
+
+```{r ut49}
+source('../knowledge-survival/dissertation_source.R')
+out='out'
+load(paste(out,'wok2dbl.RData',sep=.Platform$file.sep))
+setkey(wok2dbl,field,val)
+ut49<-wok2dbl[list('PY',as.character(1900:1949)),unique(id)]
+rm(wok2dbl)
+load(paste(out,'dbl2bel.RData',sep=.Platform$file.sep))
+setkey(dbl2bel,ut)
+dbl2bel<-dbl2bel[ut49]
+dbl2bel<-dbl2bel[!(dbl2bel$zpend|dbl2bel$zdup|dbl2bel$zloop),list(ut,zcr)]
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel49/zcrel'
+	,type='crel'
+))
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel49/zutel'
+	,type='utel'
+))
+load(paste(out,'dbl2bel.RData',sep=.Platform$file.sep))
+setkey(dbl2bel,ut)
+dbl2bel<-dbl2bel[ut49]
+dbl2bel<-dbl2bel[!(dbl2bel$pend|dbl2bel$loop),list(ut,cr)]
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel49/crel'
+	,type='crel'
+	))
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel49/utel'
+	,type='utel'
+	))
+```
+
+```{r mel2cfinder-f49}
+source('../knowledge-survival/dissertation_source.R')
+rm(bel2mel)
+system.time(load(paste('out/mel49/zcrel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel49/zcrel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel49/zutel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel49/zutel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel49/crel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel49/crel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel49/utel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel49/utel'
+))/60
+```
+
+```{r igraph-test}
+source('../knowledge-survival/dissertation_source.R')
+library(igraph)
+library(data.table)
+load("~/Dropbox/GitHub/manuscript/out/mel49/zutel/bel2mel.RData")
+g<-graph.edgelist(as.matrix(bel2mel$utel[,list(ut1,ut2)]),FALSE)
+g<-decompose.graph(g)
+sg<-sapply(g,vcount)
+table(sg)
+gut<-g[[which.max(sg)]]
+write.table(matrix(as.integer(factor(get.edgelist(gut))),ncol=2),file='out/mel49/giant-comp-zutel49.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+load("~/Dropbox/GitHub/manuscript/out/mel49/zcrel/bel2mel.RData")
+g<-graph.edgelist(as.matrix(bel2mel$crel[,list(cr1,cr2)]),FALSE)
+g<-decompose.graph(g)
+sg<-sapply(g,vcount)
+table(sg)
+gcr<-g[[which.max(sg)]]
+# shouldn't be any components of size 2
+write.table(matrix(as.integer(factor(get.edgelist(gcr))),ncol=2),file='out/mel49/giant-comp-zcrel49.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+load("~/Dropbox/GitHub/manuscript/out/mel49/zutel/bel2mel.RData")
+setkey(bel2mel$utel,ew)
+g<-graph.edgelist(as.matrix(bel2mel$utel[list(4),list(ut1,ut2)]),F)
+g<-decompose.graph(g)
+sg<-sapply(g,vcount)
+table(sg)
+gut4<-g[which(sg==max(sg))]
+write.table(matrix(as.integer(factor(get.edgelist(gut4[[1]]))),ncol=2),file='out/mel49/utel49-gut4_1.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+write.table(matrix(as.integer(factor(get.edgelist(gut4[[2]]))),ncol=2),file='out/mel49/utel49-gut4_2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+pdf('out/mel/test/gut4.pdf')
+	plot(gut4[[1]])
+	plot(gut4[[2]])
+dev.off()
+gutid<-sapply(gut4,vertex.attributes)
+load("~/Dropbox/GitHub/manuscript/out/dbl2bel.RData")
+
+gut4_1<-dbl2bel[gutid[[1]],list(ut,zcr)]
+setkey(gut4_1,ut,zcr)
+gut4_1<-unique(gut4_1)
+zcr<-gut4_1[,.N,by=zcr]
+setkey(zcr,N)
+zcr<-sort(zcr[!list(1),zcr])
+setkey(gut4_1,zcr)
+gut4_1<-gut4_1[zcr]
+ut<-gut4_1[,.N,by=ut]
+setkey(ut,N)
+ut<-sort(ut[!list(1),ut])
+setkey(gut4_1,ut)
+gut4_1<-gut4_1[ut]
+
+gut4_2<-dbl2bel[gutid[[2]],list(ut,zcr)]
+setkey(gut4_2,ut,zcr)
+gut4_2<-unique(gut4_2)
+zcr<-gut4_2[,.N,by=zcr]
+setkey(zcr,N)
+zcr<-sort(zcr[!list(1),zcr])
+setkey(gut4_2,zcr)
+gut4_2<-gut4_2[zcr]
+ut<-gut4_2[,.N,by=ut]
+setkey(ut,N)
+ut<-sort(ut[!list(1),ut])
+setkey(gut4_2,ut)
+gut4_2<-gut4_2[ut]
+
+gut4_1<-bel2mel.f(gut4_1,out='out/mel/test/1',type='crel')
+gut4_2<-bel2mel.f(gut4_2,out='out/mel/test/2',type='crel')
+#mel2cfinder.f(gut4_1,out='out/mel/test/1') # will strip names because data.table doesn't make copies
+#mel2cfinder.f(gut4_2,out='out/mel/test/2') # will strip names because data.table doesn't make copies
+
+gut4_1g<-graph.edgelist(as.matrix(gut4_1$crel[,list(as.character(cr1),as.character(cr2))],ncol=2),F)
+g<-decompose.graph(gut4_1g)
+sg<-sapply(g,vcount)
+table(sg)
+gut4_1g<-g[[which(sg==max(sg))]]
+
+hulls1<-list()
+for(i in unique(unlist(gut4_1$crel$ut))) hulls1[[i]]<-which(V(gut4_1g)$name%in%sort(unique(unlist(gut4_1$crel[sapply(gut4_1$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
+
+pdf('out/mel/test/1/gut4_1.pdf')
+plot(graph.adjacency(sapply(hulls1,function(x) sapply(hulls1,function(y) length(intersect(x,y)))),mode='upper',diag=F,weighted=T))
+dev.off()
+
+samp1<-c('WOS:000204992100005','WOS:000205009200002')
+pdf('out/mel/test/1/gut4_1g-zcr.pdf')
+plot(
+	gut4_1g
+	,mark.groups=hulls1[samp1]
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	)
+dev.off()
+write.table(matrix(as.integer(factor(get.edgelist(gut4_1g))),ncol=2),file='out/mel/test/1/1.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+
+gut4_2g<-graph.edgelist(as.matrix(gut4_2$crel[,list(as.character(cr1),as.character(cr2))],ncol=2),F)
+g<-decompose.graph(gut4_2g)
+sg<-sapply(g,vcount)
+table(sg)
+gut4_2g<-g[[which(sg==max(sg))]]
+
+hulls2<-list()
+for(i in unique(unlist(gut4_2$crel$ut))) hulls2[[i]]<-which(V(gut4_2g)$name%in%sort(unique(unlist(gut4_2$crel[sapply(gut4_2$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
+
+pdf('out/mel/test/2/gut4_2.pdf')
+plot(graph.adjacency(sapply(hulls2,function(x) sapply(hulls2,function(y) length(intersect(x,y)))),mode='upper',diag=F,weighted=T))
+dev.off()
+
+samp2<-c('WOS:000204682200001','WOS:000204694300003','WOS:000204681700001')
+pdf('out/mel/test/2/gut4_2g-zcr.pdf')
+plot(
+	gut4_2g
+	,mark.groups=hulls2[samp2]
+	,vertex.label=1:length(V(gut4_2g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	,vertex.color=c('white','gray')[(1:length(V(gut4_2g))%in%unique(unlist(hulls2[samp2])))+1]
+	)
+dev.off()
+write.table(matrix(as.integer(factor(get.edgelist(gut4_2g))),ncol=2),file='out/mel/test/2/2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+```
+
+```{r cosparallel-test}
+cosresults.f<-function(dir){
+f<-grep('[0-9]_communities\\.txt$',dir(dir),value=T)
+k<-as.integer(sub('_.+','',f))
+f<-f[order(k)]
+k<-k[order(k)]
+cos<-lapply(f,function(x) {
+	x<-readLines(paste(dir,x,sep=.Platform$file.sep))
+	x<-sapply(x,function(y) lapply(strsplit(y,split='[: ]'),as.integer))
+	x<-data.table(id=sapply(x,function(y) y[1]),memb=lapply(x,function(y) y[-1]))
+	x<-x[,list(memb=list(memb)),by=id]
+	x<-lapply(x$memb,function(y) sort(unique(unlist(y))))
+	x
+	})
+names(cos)<-paste('k',k,sep='')
+cos<-cos[!duplicated(cos,fromLast=T)]
+l<-read.table(paste(dir,grep('map',dir(dir),value=T),sep=.Platform$file.sep))
+cos<-lapply(cos,function(x) lapply(x,function(y) sort(l[y+1,1])))
+
+ret<-list(orig=cos)
+
+x<-lapply(cos,function(x) sort(unique(unlist(x))))
+x<-rev(lapply(length(x):1, function(y) sort(unique(unlist(x[length(x):y])))))
+for(i in 1:(length(x)-1)) x[[i]] <- setdiff(x[[i]],x[[i+1]])
+ret$strict<-mapply(function(com,reg) lapply(com,function(y) intersect(y,reg)),com=cos,reg=x) # com=communities reg=register
+ret$strict<-lapply(ret$strict,function(x) x[!!sapply(x,length)])
+ret$strict<-ret$strict[!!sapply(ret$strict,length)]
+names(ret$strict)<-paste(names(ret$strict),'-',sep='')
+ret$strict<-do.call(c,ret$strict)
+names(ret$strict)<-sub('-$','',names(ret$strict))
+
+attributes(ret)$levels<-readLines(gzfile(paste(dir,grep('levs.txt.gz',dir(dir),value=T),sep=.Platform$file.sep)))
+ret
+}
+cos<-cosresults.f('/Users/bambrose/Dropbox/GitHub/manuscript/out/mel/test/1')
+```
+
+```{r plot_cosresults}
+lout<-layout.auto(gut4_1g,repulserad=(vcount(gut4_1g)^3))
+pdf('out/mel/test/gut4_1g-zcr-cos.pdf')
+mxcol<-max(as.integer(sub('k([0-9]+).*','\\1',names(cos$orig))))
+lapply(names(cos$orig),function(j){
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$orig[[j]])))-2
+try(
+	plot(
+	gut4_1g
+	,mark.groups=lapply(cos$orig[[j]],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=0
+	,mark.col=rainbow(mxcol,start=.7,end=.1,alpha=.3)[cols]
+	,mark.border=rainbow(mxcol,start=.7,end=.1,alpha=1)[cols]	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main=j
+	,layout=lout
+	)
+)
+	})
+dev.off()
+pdf('out/mel/test/gut4_1g-zcr-cos-strict.pdf')
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$strict)))-2
+mark.col<-rainbow(max(cols),start=.7,end=.1,alpha=1)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+mark.border<-rainbow(max(cols),start=.7,end=.1,alpha=.3)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+plot(
+	gut4_1g
+	,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=5
+	,mark.col=mark.col
+	,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=lout
+)
+dev.off()
+pdf('out/mel/test/gut4_1g-zcr-cos-strict.pdf')
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$strict)))-2
+mark.col<-terrain.colors(max(cols))[cols] #rainbow(max(cols),start=.7,end=.1,alpha=1)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+mark.border<-mark.col #rainbow(max(cols),start=.7,end=.1,alpha=.3)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+plot(
+	gut4_1g
+	,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=5
+	,mark.col=mark.col
+	,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=lout
+)
+dev.off()
+```
+
+```{r 3d-test}
+z<-do.call(rbind,mapply(function(k,c,l) cbind(k,c,l),k=as.integer(sub('k([0-9]+).*','\\1',names(cos$strict))),c=as.integer(factor(names(cos$strict))),l=cos$strict))
+V(gut4_1g)$maxc<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'c']
+V(gut4_1g)$maxk<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'k']
+if(F) {rglplot(
+	gut4_1g
+	#,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	#,mark.expand=5
+	#,mark.col=mark.col
+	#,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.color=terrain.colors(max(cols))[V(gut4_1g)$maxk-2]
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=cbind(lout,V(gut4_1g)$maxk)
+)}
+chulls<-lapply(lapply(split(lout,f=V(gut4_1g)$maxc),matrix,ncol=2),function(x) convex.hull(x)$rescoords)
+chulls<-mapply(function(a,b) cbind(a,b[1]),a=chulls,b=split(V(gut4_1g)$maxk,f=V(gut4_1g)$maxc))
+open3d()
+#rgl.open()
+#rgl.bg(color="gray")
+#rgl.light()
+tercol<-sapply(chulls,function(x) terrain.colors(max(cols))[x[1,3]-2])
+for(i in 1:(length(chulls)-1)) {cat(i,"");try(shade3d(extrude3d(chulls[[i]][,-3],thickness=unique(chulls[[i]][,3]),smooth=T),col=tercol[i]))}
+#rgl.close()
+
+```
+
+
+
+Assuming that there is at least one 2-star (node of degree two or more) in the bipartite graph, `bel2mel.f` will by default return both monopartite projections. Each projection is the inverse of the other in the sense that what are nodes in the first projection are edges in the second, and vice versa.
+
+## Bag of Words
+
+The `jstor2dbw` object contains a variable `bow` and associated attribute `vocab` which can be fed directly to the `stm` package for topic modeling. Usage will be described below.
+
+## Merging
+
+## Survival
+
+# Analytical Method
+
+## Clique Percolation
+
+## Topic Modelling
+
+The `jstor2stm.f` function is a simple wrapper for the `stm` package for stuctural topic modeling.
+
+## Survival Analysis
+
+# Reporting
+
+##Study 1: The Transition from Extensive to Intensive Development
+
+Growth in the number of scholars and the number of published scholarly works is attended by a qualitative transitions between extensive and intensive patterns of citation. When disciplines are very young scholars are almost always exploring new or at least unclaimed terrain with little interest in covering the same ground twice. As disciplines develop a transition invariably occurs; scholars become much more likely to retrace familiar ground. Much of the work of this study aims to understand the significance of this fact.
+
+First the fact must be established. Intellectual terrain is often imagined as a space of meaning or a population meaningfully distinguishable ideas. Because ideas cannot be directly observed, several indicators of their presence have been used, citations chief among them. Empirically, then, we will start on the basis of the citations as a useful indicator of ideas. Later we will discuss the limitations of the ideational theory, and we will present an alternative interpretation of a citation space. Luckily the facts at issue will not change.
+
+So, then, it will be useful to treat the terrain of scholarship as the accumulating stock of already cited references. The act of exploration, so to speak, of this space consists in the inclusion, in the reference list of a scholarly publication, of a particular set of citations and not another. A footprint in this space, left by one publication, may be represented as a count of each citation pair in the list of references. This operationalization allows footprints to overlap completely, partially, or not at all. By enumerating citation pairs or co-citations instead of their individual counts, we also claim that the meaning of a reference may vary in combination with other references.
+
+A more empiricist and less theory laden interpretation is to claim that we may identify how disparate acts of cultural production hang together, without knowing why they do so. Citations provide merely one kind of thread, but were we to trace out several more modes of relatedness then we might provide a fuller picture of the sociocultural structure underpinning scholarship. Such a task is beyond scope for the present study, but we can at least specify ignorance [@Merton1987:vi]. Clearly there is much more to the content of a publication than its list of references. But even considering this narrow slice of its meaningful content, we are already at pains to generalize from the observation of a citation pattern to the cause of that pattern appearing in a particular time and place. It will be difficult, for instance, to posit a choice mechanism, for we cannot discern whether the inclusion of a reference was the choice of the author, the editor of a journal, the reviewers refereeing the manuscript, a colleague listed in the acknowledgements, an uncredited inspiration, etc. I therefore make no effort to identify an actor responsible for an included reference, but rather consider it the outcome of the local art world surrounding the production of that piece of scholarship [c.f. theories of authorship @ ;@ ]. What is a critical problem to solve for the intellectual historian may a fool's errand for the population researcher. It is a mistake to treat any particular citation, and especially to treat the entire reference list, as reflective of the choice of the author. Indeed this mystifies the production process behind scholarship.
+
+An extensive pattern of citation then is one that both introduces never before cited references and one that favors those extant references that have been cited the least by others. A Poisson distribution is a simple first approximation of a random search in this space, and observed citation counts with a mean below the random pattern (underdispersion) can be considered to represent the extensive pattern, while means above the same (overdispersion) may represent the intensive pattern.
+
+This extensive pattern of development may be compared to the paradigmatic model described by Kuhn [-@Kuhn:1970vn\:10]. Once a paradigm, in the sense of a model to be extended, takes hold among a community of scholars, normal science ensues as a process of narrowing the range of possibilities opened by the paradigm. The specifically scientific pattern of development is to retrace familiar problems until they are solved, and then to relegate the solution to one or another form of black box, such as mathematical codification, textbook explication, or codification in technology. Familiar ground is in one moment intensely retraced, and in the next systematically forgotten. Indeed Kuhn aims to demonstrate that the ideology of cumulative development in the sciences is a consequence of black boxing, which serves to render subsequent generations of scientists ignorant of a history better described by a cyclical or sinusoidal trend.
+
+While pre-history of disciplines are beyond Kuhn's scope, here they are paramount. This emphasis is based in a hunch that the mechanisms that govern the genesis of disciplines may be implicated in their ongoing development.
+
+
+
+

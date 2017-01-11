@@ -1,0 +1,34 @@
+{
+    "bookdown::mathquill" : {
+        "binding" : "mathquill",
+        "description" : "Input math expressions via the MathQuill library.",
+        "interactive" : true,
+        "name" : "Input LaTeX Math",
+        "package" : "bookdown",
+        "title" : ""
+    },
+    "bookdown::serve_book" : {
+        "binding" : "serve_book",
+        "description" : "Run bookdown::serve_book() to live preview a book.",
+        "interactive" : true,
+        "name" : "Preview Book",
+        "package" : "bookdown",
+        "title" : ""
+    },
+    "shinyjs::colourPickerAddin" : {
+        "binding" : "colourPickerAddin",
+        "description" : "Lets you easily select colours.",
+        "interactive" : true,
+        "name" : "Colour Picker",
+        "package" : "shinyjs",
+        "title" : ""
+    },
+    "testit::insert_identical" : {
+        "binding" : "insert_identical",
+        "description" : "Insert the infix operator %==% from testit.",
+        "interactive" : false,
+        "name" : "Insert %==%",
+        "package" : "testit",
+        "title" : ""
+    }
+}

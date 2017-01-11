@@ -1,0 +1,145 @@
+```{r init,message=F,warning=F,include=F}
+source('~/wrk/flw/init.R')
+```
+# Introduction
+
+A discipline is established as a categorization mechanism when the set of possible labels for the same cultural object shrinks to a short and ranked list.
+
+The position at the top of that list will be occupied by what we call the disciplinary prefix, and below it variations on nouns used to capture different aspects of cultrual content from created work to the authors themselves.
+
+Consider five social science disciplines--anthropology, economics, political science, psychology, and sociology.
+
+In english the labels that like flags lay claim to disciplinary resources are the prefixes anth-, econ-, poli-, psyc-, and soci-.
+
+In sociology the term "social problem" is an example of the flag being established as a claim to disciplinary relevance.
+
+We contend that these prefixes will diffuse first as generic and weakly categorical terms that could modify and lay claim to any worldly object.
+
+# Temporal Sequencing Methods
+
+Correlations between time series are difficult to tease out due to several dynamics that if not controlled for can lead to spurious correlations. Before we can attempt to test causal order we must decompose historical trends in terms into their systematic and residual components, such that we may test the residuals for patterns between two series.
+
+ARIMA models have been criticized for their irrealism [@Isaac:1989hp\:877]. After establishing statistical considerations and laying bare our assumptions, we will discuss the historical and ontological limitations of the statistical approach.
+
+## Series
+
+```{r query,eval=T,include=T}
+q<-data.table(
+ Stem=factor(1:5,labels=
+ c('soci','econ','anth','poli','psyc'))
+ ,Genre=factor(1:5,labels=
+ c('social','economic','cultural','political','mental'))
+ ,Technique=factor(1:5,labels=
+ c('sociological','economical','anthropological','political','psychological'))
+ ,Ontology=factor(1:5,labels=
+ c('society','economy','culture','polity','mind_NOUN'))
+ ,Discipline=factor(1:5,labels=
+ c('(sociology - sociology of)','(economics - economics of)','(anthropology - anthropology of)','(political science  - political science of)','(psychology - psychology of)'))
+ ,Profession=factor(1:5,labels=
+ c('sociologist','economist','anthropologist','political scientist','pscyhologist'))
+ ,Subdiscipline=factor(1:5,labels=
+ c('sociology of','economics of','anthropology of','political science of','psychology of'))
+)
+dq<-q
+dq[,`:=`(Ontology=sub('_NOUN','',Ontology),Discipline=sub('.(.+) - .+','\\1',Discipline))]
+dq<-t(dq)
+dq<-data.table(Class=rownames(dq)[-1],dq[-1,])
+setnames(dq,q[,c(' ',as.character(Stem))])
+sg(dq,tit='Terms searched in the Google Books Ngrams Database',lab='query',col.align = c('cccccc','llllll'))
+```
+
+
+## ARIMA model
+
+ARIMA, or AutoRegressive Integrated Moving Average, models are effective in decomposing several categories of within-series correlations. 
+
+\begin{equation}
+\text{I} = \frac{\text{MA}}{\text{AR}}
+\end{equation}
+
+This says that $I$, the change in our series, is a function of $MA$, a moving but systematic average (a line or higher order polynomial) and 
+
+\begin{equation}
+ (1-B)^d y_{t} = \frac{c + (1 + \theta_1 B + \cdots + \theta_q B^q)e_t}{(1-\phi_1B - \cdots - \phi_p B^p)}
+\end{equation}
+
+Where $c$ is a constant drift up or down,  
+
+
+
+## Granger Causality
+
+# Results
+
+```{r t-prefix}
+gbng2tts<-gbng2tts.f(ys = 1840,ye = 2009,cfso = F,query = q)
+tts2arima<-tts2arima.f(gbng2tts)
+gbng2tts[,`Frequency t-Score`:=tscore(Frequency),by=Phrase]
+gbng2tts[,`:=`(
+  Predicted=tts2arima[,unlist(fit)]
+  ,`Predicted t-Score`=tts2arima[,unlist(nfit)]
+  )]
+tts2arima$aa
+
+```
+
+```{r}
+setkey(gbng2tts,Phrase,Year)
+p<-list()
+ggplot(gbng2tts,aes(x=Year)) + geom_point(aes(y=Frequency),alpha=3/10) + geom_line(aes(y=Predicted)) + facet_wrap(~Phrase)
+```
+
+```{r}
+t$prefix<-dcast(unique(gbng2tts$ts[,list(Phrase,stem,cat)]),stem~cat,value.var='Phrase',fun=paste,collapse=', ')
+t$prefix[c('anth','psyc'),'A. Generic':=ital(`A. Generic`)] %>% invisible()
+sg(t$prefix,lab='t-prefix',title='Disciplinary Prefixes',col.align=c(old='ccccc',new='lllll')
+	 #	 ,notes.align = 'l',notes = 'Italicized items deviate from the stem convention.'
+)
+```
+
+As table \ref{t-prefix} shows.
+
+```{r f-1prefix, fig.cap='Disciplinary Prefix soci-'}
+# #chunk options
+gbng2tts$p$soci
+```
+
+#Which came first?
+
+Granger tests can help determine which  [@Thurman:1988va; @Granger:1969wx]
+
+Clear secular trends and period effects surrounding WWII and the baby boom. To control:
+
+* Model the trends. We could estimate the linear trend or splines and then subtract them.
+* First differences. Subtract from each point the previous point.
+* Link relatives. Divide each point from the point before it.
+
+Box Cox doesn't mean
+
+```{r ts-inspect}
+tts() %>% plot(type='l')
+plot(x=tts()$y[-1],y=diff(tts()$f),type='l')
+plot(x=tts()$y[-(1:2)],y=diff(diff(tts()$f)),type='l')
+
+b<-BoxCox(tts()$f,BoxCox.lambda(tts()$f))
+plot(tts()$y,b,type='l')
+plot(x=tts()$y[-1],y=diff(b),type='l')
+plot(x=tts()$y[-(1:2)],y=diff(diff(b)),type='l')
+```
+
+```{r ts-test}
+library(forecast)
+library(tseries)
+tts()$f %>% kpss.test()
+tts()$f %>% ndiffs(alpha = .01)
+fit<-tts()$f %>% auto.arima(trace=T)
+summary(fit)
+plot(forecast(fit,h=10),include=80)
+```
+
+\begin{equation}\tag{8.1}\label{eq-8-arima} y'_{t} = c +
+\phi_{1}y'_{t-1} + \cdots + \phi_{p}y'_{t-p} +
+\theta_{1}e_{t-1} + \cdots + \theta_{q}e_{t-q} + e_{t},
+\end{equation}
+
+#References

@@ -1,0 +1,77 @@
+```{r init,message=F,warning=F,include=F}
+source('~/wrk/flw/init.R')
+```
+
+- Association between k-Clique and Topic Model Classifications
+
+```{r jstor2dbw}
+jstor2dbw<-jstor2dbw.f(
+	dir=mat$jstor0041
+	,out=out$jstor0041
+	,save=T
+	,import.ngrams=T
+	,sample.batches=T
+	,sample.size=1
+	,in.parallel=F # import batches in parallel
+	,drop.nchar1=T # drop ngrams of 1 character
+	,drop.freq1=T # drop ngrams that appear only once
+	,drop.doc1=T # drop ngrams that appear in only one document
+	,check.for.saved.output=T # will scan output directory for a 'jstor2dbw.RData' file, load it, and return it instead of running a new import
+)
+```
+
+```{r jstordfr-0041top5-query}
+dfrcounts<-c('./resources/dfr.jstor.org_AMERICAN-ANTHROPOLOGIST_0041_counts_ameranth.csv'
+,'./resources/dfr.jstor.org_AMERICAN-JOURNAL-OF-SOCIOLOGY_0041_counts_amerjsoci.csv'
+,'./resources/dfr.jstor.org_ECONOMIC-JOURNAL_0041_counts_economicj.csv'
+,'./resources/dfr.jstor.org_JOURNAL-OF-POLITICAL-ECONOMY_0041_counts_jpoliecon.csv'
+,'./resources/dfr.jstor.org_QUARTERLY-JOURNAL-OF-ECONOMICS_0041_counts_quarjecon.csv')
+dfrcs.f<-function(csv,maxbatch=1000,url){
+	require(data.table)
+	dfr<-data.table(read.csv(csv))
+	ret<-list()
+	while(nrow(dfr)>0){
+		w<-which(cumsum(dfr$ARTICLE_COUNT)%/%1000==0)
+		r<-range(dfr$Year_of_Publication[w])
+		ret[[length(ret)+1]]<-data.table(batch=length(ret)+1,beg=r[1],end=r[2],n=sum(dfr$ARTICLE_COUNT[w]))
+		dfr<-dfr[!w]
+	}
+ret<-rbindlist(ret)
+ret[,jour:=sub('^.+_(.+)\\.csv','\\1',csv)]
+ret[,cat(paste('\nhttp://dfr.jstor.org/fsearch/submitrequest?cs=jcode%3A',jour,'%5E1.0%7Cyear%3A%5B',beg,'+TO+',end,'%5D%5E1.0&fs=rtm1%3Ayrm1%3Atym1%3Asnm2&view=text&',collapse='',sep=''))]
+ret
+}
+(batches<-rbindlist(lapply(dfrcounts,dfrcs.f)))
+```
+
+```{r jstor2dbw-f}
+jstor2dbw<-jstor2dbw.f(dir=mat$jstor0041,out=out$jstor0041,sample.batches = F)
+```
+
+```{r jstor2dbw-deriv}
+jstor2dbw[,db:='jstor']
+#to align with WOK codes
+jstor2dbw[,`:=`(
+	PY=as.integer(substr(pubdate,0,4))
+	,SO=toupper(sub('^The ','',journaltitle))
+	,DT=sub('^fla$','Article',sub('^brv$','Book Review',type))
+	)]
+```
+
+```{r jstor2dbw-summary1}
+setkey(jstor2dbw,type)
+jnut<-ggplot(data=jstor2dbw[c('fla'),.N,by=c('journaltitle','type','PY')]
+,mapping = aes(PY,fill=factor(type,levels=c('fla','brv','edi','mis','nws')),weight=N)
+) +
+	geom_histogram(binwidth=1) +
+	facet_grid(journaltitle~.
+						# ,scales='free_y'
+						 ,space='free'
+						 ) +
+	theme(
+		strip.text.y=element_text(angle=0)
+		,legend.position="none"
+	)
+jnut + scale_fill_brewer(palette='Set1')
+```
+

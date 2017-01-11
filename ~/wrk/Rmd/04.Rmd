@@ -1,0 +1,27 @@
+```{r init,message=F,warning=F,include=F}
+source('~/wrk/flw/init.R')
+```
+
+- Poisson Permutation Test to Locate Transition from Extensive to Intensive Development
+
+```{r bel2mel-f}
+bel2mel<-bel2mel.f(
+	dbl2bel
+	,out=out$wok0041
+	,check.for.saved.output=cfso
+	,type='crel'
+	,write2disk=F
+)
+bel2mel
+```
+
+```{r mel2net-f}
+mel2net<-mel2net.f(
+	bel2mel
+	,count=T
+	,rcount=T
+	,out=out$wok0041
+)
+
+```
+

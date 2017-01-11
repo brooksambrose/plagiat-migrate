@@ -1,0 +1,111 @@
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:18: master2wok.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:74: jstor2dbw.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:101: 	import.dfr.jstor.f<-function(zip){
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:116: 		bow.f<-function(x){
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:129: 		if(import.ngrams) dat[,bow:=lapply(id,function(x) try(bow.f(x)))]
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:138: 		jstor2dbw <- foreach(i = zips,.packages = c('data.table','tm','SnowballC'),.inorder=F) %dopar% try(import.dfr.jstor.f(zip=i))
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:140: 	} else {jstor2dbw<-list();for(i in zips) jstor2dbw[[i]]<-try(import.dfr.jstor.f(zip=i))}
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:158: wok2dbl.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:270: dbl2inspect.f<-function(wok2dbl,reps=100,drop.miss.vars=F){
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:318: dbl2dbw.f<-function(wok2dbl,form='id~field'){
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:339: dbl2bel.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:501: bel2mel.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:588: mel2comps.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:627: comps2cos.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:652: cos2kcliqdb.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:720: kcliqdb2viz.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:794: mel2cfinder.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:826: cfinder2all.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:897: perm.pois.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:988: mel2net.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1271: thatgirlis.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1383: 	bel2mel<-bel2mel.f(dbl2bel,out=getwd())
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1384: 	mel2net<-mel2net.f(bel2mel)
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1388: dbl2w.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1505: w2tab.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1530: 	tl.f<-function(dbl2w,wvar,levs,hg,lg,sort=c("key","order","given"),decreasing=T,subset=NULL){
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1543: 	init<-tl.f(dbl2w,wvar=sort,sort="order",hg=hg,lg=lg)
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1549: 	for(i in wo) tl[[i]]<-tl.f(dbl2w,wvar=i,hg=hg,lg=lg)
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1572: 												 ,tl.f(dbl2w,wvar=wvar
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:1947: cull.f<-function(
+~/Dropbox/GitHub/pack-dev/dissertation_source.R:2110: gng2tts.f<-function(){ # google ngram 2 token time series
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:25: sdt.f<-function(strl=sl,ix=i){
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:80: sdt.f(ix=1)
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:86: sdt.f(ix=i)
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:135: ix.f<-function(k,ij) k[ij]
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:251: ix.f<-function(k,ij) k[ij]
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:275: samp.f<-function(x,y){
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:279: samp<-frame[,samp.f(x=ix,y=prob),by=batch]$V1
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:284: samp.f<-function(x,y){
+~/Dropbox/GitHub/pack-dev/string_comparison_metrics.R:288: samp.test<-frame[,samp.f(x=ix,y=prob),by=batch]$V1
+~/Dropbox/GitHub/dlabctawg/icpsr-import/development/icpsr-import-dev.R:31: icpsr2RData.f<-function(src.dir,ncong=104:110){
+~/Dropbox/GitHub/dlabctawg/icpsr-import/development/icpsr-import.Rmd:21: icpsr2RData.f(src.dir = '/Users/bambrose/Dropbox/2016-2017/2016-2017_A-Fall/CTAWG/ICPSR_33501')
+~/Dropbox/GitHub/dlabctawg/icpsr-import/development/icpsr-import.Rmd:25: icpsr2bow<-icpsr2bow.f(src.dir = '/Volumes/Iomega_HDD 1/Scraped Hearings')
+~/Dropbox/GitHub/dlabctawg/icpsr-import/development/icpsr-import.Rmd:43: dict<-txt2pp.f(dict)
+~/Dropbox/GitHub/dlabctawg/icpsr-import/development/icpsr-import.Rmd:121: system.time(bow2stm<-bow2stm.f(sdb))
+~/Dropbox/GitHub/dlabctawg/lda-wrapper/vignette.Rmd:73: icpsr2stmbow<-icpsr2stmbow.f(
+~/Dropbox/GitHub/dlabctawg/lda-wrapper/vignette.Rmd:89: ftxt2stmbow<-ftxt2stmbow.f(
+~/Dropbox/GitHub/dlabctawg/lda-wrapper/vignette.Rmd:100: stmbow2lda<-stmbow2lda.f(
+~/Dropbox/GitHub/dlabctawg/lda-wrapper/vignette.Rmd:123: lda2rel<-lda2rel.f(
+~/Dropbox/GitHub/dlabctawg/lda-wrapper/vignette.Rmd:132: ftxt2stmbow<-ftxt2stmbow.f(
+~/Dropbox/GitHub/dlabctawg/lda-wrapper/vignette.Rmd:140: 	m<-lda2ftxt.f(
+~/Dropbox/GitHub/dlabctawg/lda-wrapper/vignette.Rmd:159: lda2netviz<-lda2netviz.f(stmbow2lda = stmbow2lda)
+~/Dropbox/GitHub/dlabctawg/lda-wrapper/vignette.Rmd:164: lda2viz<-lda2viz.f(stmbow2lda)
+~/Dropbox/GitHub/dlabctawg/stm-prev-cont/source.R:5: ftxt2stmbow.f<-function(source.dir=NULL,string=NULL,names=NULL,lt=1,save.to.disk=F,check.for.saved.output=F,out.dir){
+~/Dropbox/GitHub/dlabctawg/stm-prev-cont/source.R:77: icpsr2stmbow.f<-function(icpsr,sample.size=100,wrdmin=0,wrdmax=0,lt=1,save.to.disk=F,check.for.saved.output=F,out.dir=NULL){
+~/Dropbox/GitHub/dlabctawg/stm-prev-cont/source.R:176: stmbow2lda.f<-function(stmbow,out.dir,k,alpha=NULL,visualize.results=F,verbose=F,save.to.disk=F,check.for.saved.output=F)
+~/Dropbox/GitHub/dlabctawg/stm-prev-cont/source.R:213: lda2viz.f<-function(stmbow2lda){
+~/Dropbox/GitHub/dlabctawg/stm-prev-cont/source.R:233: lda2netviz.f<-function(stmbow2lda,thresh="choose"){
+~/Dropbox/GitHub/dlabctawg/stm-prev-cont/source.R:331: lda2ftxt.f<-function(map,doc.top,top.word,lda2rel,intensify=T,intensity=.3,sample=10,out.dir=NULL,index=0,spacing=.4,ptsize=10,axes=F,pdf=F,mxdoc.word.prop=0)
+~/Dropbox/GitHub/dlabctawg/stm-prev-cont/source.R:464: lda2rel.f<- function(stmbow2lda,R = 10,lambda.step = 0.5,reorder.topics = TRUE,save.to.disk=F,check.for.saved.output=F,out.dir,...) {
+~/Dropbox/GitHub/dlabctawg/stm-prev-cont/vignette.Rmd:51: icpsr2stmbow<-icpsr2stmbow.f(
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:39: if(F){wok2db<-wok2db.f(
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:165: system.time(db2bel<-db2bel.f(
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:194: system.time(bel2mel<-bel2mel.f(
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:488: netn.f<-function(net){
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:2145: 	cull.f<-function(a,b,cull=.2,noanon=F) {
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:2163: 		if(!is.null(cull)) init<-cull.f(a=long[i,k],b=init,cull=cull)
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:2287: 		wok2bel.f(wok2db=comdb[J(unlist(index[rang[[i]],]))],out=out,man_recode=T)
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:2293: 	wok2bel.f(wok2db=comdb[J(unlist(index[as.character(1916:1919),]))],out=out,man_recode=T)
+~/Dropbox/GitHub/knowledge-survival/dissertation.R:2296: 	wok2bel.f(wok2db=comdb[J(unlist(index[as.character(1916:1919),]))],out=out,man_recode=T,height=20,periodicals=c("MOTOR AGE","LABOUR GAZETTE","RAILWAY AGE GAZETTE","COM FIN CHRON S","OFFICIAL B","EC CIRCULAR","COMMERCE FINANC","NEW YORK J COMM","WOMENS WEAR","MONITEUR","NZ OFFICIAL YB","BANK ARCH","J COMMERCE","MONTHLY LABOR RE","COMMERCIAL AM","NEGLIGENCE COMPENSAT","ANNALIST","ECONOMIST","J DOCUMENTS HOUSE DE","SO LUMBERMAN","AM LUMBERMAN","NATIONS BUSINESS","P GLASS BOTTLE BLOWE","STONE CUTTERS J","IRON MOLDERS J","J POLITICAL EC","EC J","AM J SOCIOLOGY","Q J EC","POLITICAL SCI Q","FORUM","ANN AM ACAD","NILES REGISTER","WOMAN WORKER"))
+~/Dropbox/GitHub/manuscripts/d2016-ch1.Rmd:201: gng2tts<-gng2tts.f()
+~/Dropbox/GitHub/manuscripts/d2016-ch1.Rmd:226: 	master2wok<-master2wok.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch1.Rmd:260: wok2dbl<-wok2dbl.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch1.Rmd:273: system.time(x<-dbl2inspect.f(wok2dbl))
+~/Dropbox/GitHub/manuscripts/d2016-ch1.Rmd:313: dbl2dbw<-dbl2dbw.f(wok2dbl)
+~/Dropbox/GitHub/manuscripts/d2016-ch2rmd.Rmd:26: dbl2bel<-dbl2bel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch2rmd.Rmd:37: bel2mel<-bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch2rmd.Rmd:48: mel2comps<-mel2comps.f(bel2mel,out=out$wok0041)
+~/Dropbox/GitHub/manuscripts/d2016-ch2rmd.Rmd:52: invisible(comps2cos.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch2rmd.Rmd:60: cos<-cos2kcliqdb.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch2rmd.Rmd:67: cliqdb2flat.f<-function(kcliqdb,type=c('utel','crel')){
+~/Dropbox/GitHub/manuscripts/d2016-ch2rmd.Rmd:82: cliqdb2flat<-cliqdb2flat.f(cos)
+~/Dropbox/GitHub/manuscripts/d2016-ch2rmd.Rmd:86: kcliqdb2viz.f(cos,paste(out$wok0041,'mel2comps',sep=.Platform$file.sep),out=out$wok0041)
+~/Dropbox/GitHub/manuscripts/d2016-ch4rmd.Rmd:29: jstor2dbw<-jstor2dbw.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch4rmd.Rmd:50: dfrcs.f<-function(csv,maxbatch=1000,url){
+~/Dropbox/GitHub/manuscripts/d2016-ch4rmd.Rmd:69: jstor2dbw<-jstor2dbw.f(dir=inn$jstor0041,out=out$jstor0041,sample.batches = F)
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:38: wok2dbl<-wok2dbl.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:81: jstor2dbw<-jstor2dbw.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:185: dbl2bel<-dbl2bel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:216: bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:223: bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:232: bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:239: bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:252: mel2cfinder.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:259: mel2cfinder.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:266: mel2cfinder.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:273: mel2cfinder.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:291: bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:297: bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:307: bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:313: bel2mel.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:325: mel2cfinder.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:332: mel2cfinder.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:339: mel2cfinder.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:346: mel2cfinder.f(
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:415: gut4_1<-bel2mel.f(gut4_1,out='out/mel/test/1',type='crel')
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:416: gut4_2<-bel2mel.f(gut4_2,out='out/mel/test/2',type='crel')
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:417: #mel2cfinder.f(gut4_1,out='out/mel/test/1') # will strip names because data.table doesn't make copies
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:418: #mel2cfinder.f(gut4_2,out='out/mel/test/2') # will strip names because data.table doesn't make copies
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:476: cosresults.f<-function(dir){
+~/Dropbox/GitHub/manuscripts/d2016-ch5.Rmd:509: cos<-cosresults.f('/Users/bambrose/Dropbox/GitHub/manuscript/out/mel/test/1')

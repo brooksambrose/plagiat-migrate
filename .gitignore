@@ -1,6 +1,7 @@
 *.Rapp.history
 *.Rhistory
 *.graffle
-~/*
+~/.*
+~/mat/dd
 test/*
 .Rproj.user

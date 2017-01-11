@@ -1,0 +1,5 @@
+```{r init,message=F,warning=F,include=F}
+source('~/wrk/flw/init.R')
+```
+
+- Cox Proportional Hazard Analysis of k-Cliques
