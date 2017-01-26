@@ -5,6 +5,8 @@ bold<-function(x) paste(' \\textbf{',x,'}',sep='')
 ital<-function(x) paste(' \\textit{',x,'}',sep='')
 undr<-function(x) paste(' \\underline{',x,'}',sep='')
 
+ec<-function(x) strsplit(x,',')[[1]]
+
 sg<-function(x,lab,tit,sum=F,col.align=c(old='',new=''),rplc=c(old='^X\\. ',new=''),...) {
 	require(stargazer)
 	require(magrittr)
@@ -127,6 +129,7 @@ cat(
   ,'http://www.kdnuggets.com/2015/02/avoiding-common-mistake-time-series.html'
   ,'http://www.tylervigen.com/spurious-correlations'
   ,'https://www.otexts.org/fpp/8/1'
+  ,'https://www.otexts.org/fpp/9/2'
   ,'https://people.duke.edu/~rnau/411arim.htm'
   ,'http://stackoverflow.com/questions/26617587/finding-optimal-lambda-for-box-cox-transform-in-r'
   ,'https://www.codecogs.com/latex/eqneditor.php'
@@ -134,5 +137,10 @@ cat(
   ,'http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html'
   ,'http://stackoverflow.com/questions/32257970/knitr-inherits-variables-from-a-users-environment-even-with-envir-new-env'
   ,'http://tex.stackexchange.com/questions/21838/replace-inputfilex-by-the-content-of-filex-automatically'
+  ,'http://docs.ggplot2.org/current'
+  ,'http://stackoverflow.com/questions/15867263/ggplot2-geom-text-with-facet-grid'
+  ,'http://stackoverflow.com/questions/32123288/position-ggplot-text-in-each-corner'
+  ,'http://docs.ggplot2.org/current'
+  ,'https://yihui.name/knitr/hooks/#output_hooks'
   ,sep='\n'
 )

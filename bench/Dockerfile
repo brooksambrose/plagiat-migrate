@@ -4,12 +4,11 @@ MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 ### Heavier stuff ###
 
 ## Install that thing Aaron told me to that is big and has python
-RUN apt-get update \
-&& apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
 	software-properties-common
 
 ## Install igraph
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
 	libigraph0 \
 	libigraph0-dev
 
@@ -101,6 +100,7 @@ RUN export `cat etc/environment | grep MRAN` \
 && install2.r --repos $MRAN --deps TRUE \
 	lmtest \
 	forecast \
+	vars \
 && r -e 'warnings()'
 
 ## R packages: other stats

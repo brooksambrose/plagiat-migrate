@@ -21,10 +21,11 @@ opts_knit$set(
 
 # knitr default chunk options
 knitr::opts_chunk$set(
-	fig.width=4.32 # <26 picas as required by AJS
+  dev='pdf'
+	,fig.width=4.32 # <26 picas as required by AJS
 	,fig.height=2.5
 	,fig.align='center'
-	,fig.path='~/prd/tex/fig'
+	,fig.path='~/prd/tex/fig/'
 	,echo=FALSE
 	,eval=FALSE
 	,warning=FALSE
@@ -55,3 +56,7 @@ source('~/wrk/flw/glossary.R')
 
 #initialize tables
 t<-typ()
+
+#custom values
+mfw=5.75 # max figure width
+mfh=8 # max figure height

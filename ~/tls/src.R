@@ -2138,12 +2138,12 @@ igraph2statnet<-function(
 #'
 #' @examples
 gbng2tts.f<-function(
-  out='~/mat/dp'
+  query=c('social','cultural')
+  ,out='~/mat/dp'
   ,ys=1901
   ,ye=2000
   ,cfso=T
   ,slug='auto'
-  ,query=c('social','cultural')
   ,sm=0
 ){
   require(magrittr)
@@ -2151,33 +2151,34 @@ gbng2tts.f<-function(
   require(ngramr)
   query<-data.table(query)
   pfs<-.Platform$file.sep
-  n<-ncol(query) 
+  n<-dim(query) %>% as.list()
+  names(n)<-c('r','c')
   if(slug=='auto') {
-    if(n==1) {
-      slug<-query[,n,with=F] %>% gsub(pattern='[^A-Za-z ]',replacement='') %>% strsplit(split=' +')
+    if(n$c==1) {
+      slug<-query[,n$c,with=F] %>% gsub(pattern='[^A-Za-z ]',replacement='') %>% strsplit(split=' +')
     } else {
-      slug<-query[,!n,with=F]
+      slug<-query[,!n$c,with=F]
     }
     slug<-unlist(slug) %>% substr(0,3) %>% unique() %>% paste0(collapse='-')
   }
   fso<-sub(paste0(pfs,'+'),pfs,paste(out,pfs,'gbng',ys,ye,'-',slug,'.RData',sep=''))
   if(cfso) {
     if(!file.exists(fso)) {cat('\nNo saved ngramr output.');return(NULL)}
-    ng<-paste('~',dir('~',pattern='gbng',recursive = T),sep=pfs)
     cat('Loading \"',fso,'\"\n',sep='')
     load(fso) 
   } else {
-    gnq<-strsplit(query,',')
-    ng<-list()
-    for(i in 1:length(gnq)) ng[[i]]<-data.table(ngram(phrases=gnq[[i]],corpus = 'eng_us_2012',year_start=ys,year_end=ye,smoothing=sm,count=T),batch=i)
-    ng<-rbindlist(ng)
-    if(!is.null(names(query))) ng[,batch:=factor(batch,labels = names(query))]
-    setattr(ng,'date.queried',Sys.Date())
-    setkey(ng,batch,Phrase,Year)
+    qu<-unique(query[[n$c]])
+    lq<-length(qu)
+    b<-ceiling(lq/12) # 12 term search limit
+    if(b>1) {p<-split(qu,f=cut(1:lq,b,include.lowest=T))} else {p<-list(qu)}
+    cat('Querying Google Ngrams in',length(p),ifelse(length(p)==1,'batch.\n','batches.\n'))
+    tts<-lapply(p,function(x) data.table(ngram(phrases=x,corpus = 'eng_us_2012',year_start=ys,year_end=ye,smoothing=sm,count=T))) %>% rbindlist()
+    tts<-merge(x=tts,y=query,by.x='Phrase',by.y=names(query)[n$c])
+    setattr(tts,'date.queried',Sys.Date())
 		cat('%Saving \"',fso,'\"\n',sep='')
-		save(ng,file=fso)
+		save(tts,file=fso)
 	}
-	ng
+	tts
 }
 tscore<-function(x) (x-mean(x))/sd(x)
 
@@ -2200,6 +2201,55 @@ tts2arima.f<-function(
   tts2arima
 }
 
+tts2grgr.f<-function(
+  gbng2tts
+  ,order
+){
+  require(data.table)
+  require(forecast)
+  require(lmtest)
+  require(ggplot2)
+  if(missing(order)) {d<-copy(gbng2tts)} else {d<-gbng2tts[,Phrase:=factor(Phrase,levels=order)]}
+  setkey(d,Phrase,Year)
+  lv<-c('Identity','First Difference')
+  d<-rbindlist(list(
+    d[,list(
+      Year=Year[-1]
+      ,Frequency=Frequency[-1] %>% lintran(s1=range(Frequency[-1]))
+      ,Diffs=factor('Identity',levels = lv)
+    ),by=Phrase]
+    ,d[,list(
+      Year=Year[-1]
+      ,Frequency=diff(Frequency)  %>% lintran(s1=c(0,max(Frequency[-1]))) # %>% BoxCox(BoxCox.lambda(Frequency))
+      ,Diffs=factor('First Difference',levels = lv)
+    ),by=Phrase]
+  ))
+  
+  p <- ggplot(d, aes(Year,Frequency)) + geom_line() + 
+    geom_text(
+      aes(x, y, label=Phrase)
+      ,data=data.frame(x=-Inf,y=Inf,Phrase=unique(d$Phrase),Diffs='Identity')
+      , hjust=0,vjust=1,size=3) +
+    facet_wrap( ~ Phrase + Diffs,scales='free_y',ncol=2,strip.position='left') +
+    theme(
+      axis.text.x = element_text(angle = 90,vjust=.5,debug=F)
+      ,legend.position="bottom"
+      ,panel.grid.minor.x = element_blank()
+      ,panel.grid.minor.y = element_blank()
+      ,strip.background = element_blank()
+      #,strip.placement = "outside"
+      ,strip.text.y = element_blank()
+      ,axis.text.y = element_blank()
+      ,axis.ticks = element_blank()
+      ) +
+    scale_x_continuous(breaks=seq(round(min(d$Year),-1),round(max(d$Year),-1),10))  +
+   # scale_y_continuous(breaks=function(x) ifelse(max(x)==1,list(c(0,.5,1)),list(c(-.2,-.1,0,.1,.2)))[[1]]) +
+    ylab('Scaled Frequency')
+  graphics.off()
+  p
+  
+}
+
 arima2plot<-function(tts2arima){
   require(data.table)
   require(ggplot2)
@@ -2211,6 +2261,7 @@ if(F){
   for(i in cat) ngp[[i]]<-qplot(Year,nminmaxF,data=gng[expand.grid(1:0,i)],geom='line',color=cat,size=I(1)) + #size was 1.2
       scale_x_continuous(breaks=seq(1870,2010,10)) + scale_y_continuous(name=ytit) +
       scale_colour_grey() + theme_bw() + theme(axis.text.x = element_text(angle = 90),legend.position="bottom")
+      
   
 }
 
@@ -2234,3 +2285,4 @@ if(F){
   out <- boxcox(lm(tts()~1))
   range(out$x[out$y > max(out$y)-qchisq(0.95,1)/2])
 }
+

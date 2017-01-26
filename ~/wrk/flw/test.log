@@ -1,0 +1,696 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.1.4)  18 JAN 2017 07:37
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**test.tex
+(./test.tex
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 2 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/lib/R/share/texmf/tex/latex/Sweave.sty
+Package: Sweave 
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count88
+\FV@InFile=\read1
+\FV@TabBox=\box26
+\c@FancyVerbLine=\count89
+\FV@StepNumber=\count90
+\FV@OutFile=\write3
+) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/ae/ae.sty
+Package: ae 2001/02/12 1.3 Almost European Computer Modern
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)
+LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
+
+(/usr/share/texlive/texmf-dist/tex/latex/ae/t1aer.fd
+File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
+)))) (./test.aux)
+\openout1 = `test.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 4.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 4.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 4.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count91
+\scratchdimen=\dimen105
+\scratchbox=\box27
+\nofMPsegments=\count92
+\nofMParguments=\count93
+\everyMPshowfont=\toks15
+\MPscratchCnt=\count94
+\MPscratchDim=\dimen106
+\MPnumerator=\count95
+\makeMPintoPDFobject=\count96
+\everyMPtoPDFconversion=\toks16
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+(./test-concordance.tex)
+! You can't use `macro parameter character #' in vertical mode.
+l.12 #
+       Introduction
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in vertical mode.
+l.20 #
+      #Genre
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in vertical mode.
+l.20 ##
+       Genre
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.32 ...ciety','economy','culture','polity','mind_
+                                                  NOUN'))
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 32.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 32.
+! Double superscript.
+<recently read> ^
+                 
+l.44 setnames(dq,q[,c(' '
+                         ,as.character(Stem))])
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.51 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (64.85175pt too wide) in paragraph at lines 23--51
+[]\T1/aer/m/n/10 ```r query,eval=T q<-data.table( Stem=factor(1:5,labels= c('so
+ci','econ','anth','poli','psyc'))
+ []
+
+
+Overfull \hbox (17.82344pt too wide) in paragraph at lines 23--51
+\T1/aer/m/n/10 ,Genre=factor(1:5,labels= c('social','economic','cultural','poli
+tical','mental')) ,Tech-
+ []
+
+
+Overfull \hbox (77.18285pt too wide) in paragraph at lines 23--51
+\T1/aer/m/n/10 nique=factor(1:5,labels= c('sociological','economical','anthropo
+logical','political','psychological'))
+ []
+
+
+Overfull \hbox (79.63873pt too wide) in paragraph at lines 23--51
+\T1/aer/m/n/10 ,On-tol-ogy=factor(1:5,labels= c('society','economy','culture','
+polity','mind$[]\OML/cmm/m/it/10 OUN[]\OT1/cmr/m/n/10 ))\OML/cmm/m/it/10 ; Disc
+ipline \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (76.24641pt too wide) in paragraph at lines 23--51
+\OML/cmm/m/it/10 factor\OT1/cmr/m/n/10 (1 : 5\OML/cmm/m/it/10 ; labels \OT1/cmr
+/m/n/10 = \OML/cmm/m/it/10 c\OT1/cmr/m/n/10 ([](\OML/cmm/m/it/10 sociology \OMS
+/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 sociologyof\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/1
+0 ;[] \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 economics \OMS/cmsy/m/n/10 ^^@ \OML/cmm
+/m/it/10 economicsof\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 ;[] \OT1/cmr/m/n/10 (\O
+ML/cmm/m/it/10 anthropology \OMS/cmsy/m/n/10 ^^@
+ []
+
+
+Overfull \hbox (112.07396pt too wide) in paragraph at lines 23--51
+\OML/cmm/m/it/10 anthropologyof\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 ;[] \OT1/cmr
+/m/n/10 (\OML/cmm/m/it/10 politicalscience \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/1
+0 politicalscienceof\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 ;[] \OT1/cmr/m/n/10 (\O
+ML/cmm/m/it/10 psychology \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 psychologyof\OT
+1/cmr/m/n/10 )[]))\OML/cmm/m/it/10 ; Profession \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (173.07338pt too wide) in paragraph at lines 23--51
+\OML/cmm/m/it/10 factor\OT1/cmr/m/n/10 (1 : 5\OML/cmm/m/it/10 ; labels \OT1/cmr
+/m/n/10 = \OML/cmm/m/it/10 c\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 sociologist[];[
+] economist[];[] anthropologist[];[] politicalscientist[];[] pscyhologist[]\OT1
+/cmr/m/n/10 ))\OML/cmm/m/it/10 ; Subdiscipline \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (151.39175pt too wide) in paragraph at lines 23--51
+\OML/cmm/m/it/10 factor\OT1/cmr/m/n/10 (1 : 5\OML/cmm/m/it/10 ; labels \OT1/cmr
+/m/n/10 = \OML/cmm/m/it/10 c\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 sociologyof[];[
+] economicsof[];[] anthropologyof[];[] politicalscienceof[];[] psychologyof[]\O
+T1/cmr/m/n/10 )))\OML/cmm/m/it/10 dq <
+ []
+
+
+Overfull \hbox (222.24823pt too wide) in paragraph at lines 23--51
+\OT1/cmr/m/n/10 1[]\OML/cmm/m/it/10 ; Discipline\OT1/cmr/m/n/10 ))]\OML/cmm/m/i
+t/10 dq < \OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 (\OML/cmm/m/it/
+10 dq\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 dq < \OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/1
+0 data:table\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Class \OT1/cmr/m/n/10 = \OML/cmm/
+m/it/10 rownames\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 dq\OT1/cmr/m/n/10 )[\OMS/cmsy
+/m/n/10 ^^@\OT1/cmr/m/n/10 1]\OML/cmm/m/it/10 ; dq\OT1/cmr/m/n/10 [\OMS/cmsy/m/
+n/10 ^^@\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 ])\OML/cmm/m/it/10 
+setnames\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 dq; q\OT1/cmr/m/n/10 [\OML/cmm/m/it/1
+0 ; c\OT1/cmr/m/n/10 ([][]\OML/cmm/m/it/10 ; as:character\OT1/cmr/m/n/10 (\OML/
+cmm/m/it/10 Stem\OT1/cmr/m/n/10 ))])\OML/cmm/m/it/10 q <
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (57.7323pt too wide) in paragraph at lines 62--69
+[]\T1/aer/m/n/10 ```r tts2grgr,include=T,eval=T setkey(tts,Stem) p<-tts2grgr.f(
+ gbng2tts=tts['soci'],order=
+ []
+
+
+Overfull \hbox (30.78497pt too wide) in paragraph at lines 70--73
+[]\T1/aer/m/n/10 ```r f-3prefix1-soci,fig.width=mfw,fig.height=mfh,eval=T,inclu
+de=T,fig.cap='Terms
+ []
+
+! You can't use `macro parameter character #' in vertical mode.
+l.74 #
+       Temporal Sequencing Methods
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.78 ...g from historical reality [@Isaac:1989hp\:
+                                                  877]. After establishing s...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.79 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (422.29745pt too wide) in paragraph at lines 78--79
+\T1/aer/m/n/10 [@Isaac:1989hp$ \OT1/cmr/m/n/10 877]\OML/cmm/m/it/10 :Afterestab
+lishingstatisticalconsiderationsandlayingbareourassumptions; wewilldiscussthehi
+storicalandontologicallimitationsofthestatisticalapproach:$ 
+ []
+
+! You can't use `macro parameter character #' in vertical mode.
+l.80 #
+      # Series
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in vertical mode.
+l.80 ##
+        Series
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in vertical mode.
+l.88 #
+      # ARIMA model
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in vertical mode.
+l.88 ##
+        ARIMA model
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.93 \text
+          {I} = \frac{\text{MA}}{\text{AR}}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> \text 
+                 {MA}
+l.93 \text{I} = \frac{\text{MA}}{\text{AR}}
+                                           
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> \text 
+                 {AR}
+l.93 \text{I} = \frac{\text{MA}}{\text{AR}}
+                                           
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.114 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (98.94322pt too wide) in paragraph at lines 105--114
+[]\T1/aer/m/n/10 ```r tts2arima<-tts2arima.f(gbng2tts) gbng2tts[,`Frequency t-S
+core`:=tscore(Frequency),by=Phrase]
+ []
+
+
+Overfull \hbox (51.80246pt too wide) in paragraph at lines 105--114
+\T1/aer/m/n/10 gbng2tts[,`:=`( Pre-dicted=tts2arima[,unlist(fit)] ,`Pre-dicted 
+t-Score`=tts2arima[,unlist(nfit)]
+ []
+
+! You can't use `macro parameter character #' in vertical mode.
+l.115 #
+       # Granger Causality
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in vertical mode.
+l.115 ##
+         Granger Causality
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+
+Overfull \hbox (127.74396pt too wide) in paragraph at lines 119--124
+[]\T1/aer/m/n/10 ```r granger li-brary(lmtest) setkey(tts,Stem,Phrase,Year) tts
+['soci',] t<-gbng2tts.f(query=c('chicken','egg')) 
+ []
+
+! You can't use `macro parameter character #' in vertical mode.
+l.127 #
+        Results
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.133 ggplot(gbng2tts,aes(x=Year)) + geom_
+                                          point(aes(y=Frequency),alpha=3/10)...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.135 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (8.0868pt too wide) in paragraph at lines 130--135
+\T1/aer/m/n/10 geom$[]\OML/cmm/m/it/10 oint\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ae
+s\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 Frequen
+cy\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; alpha \OT1/cmr/m/n/10 = 3\OML/cmm/m/it/10
+ =\OT1/cmr/m/n/10 10) + \OML/cmm/m/it/10 geom[]ine\OT1/cmr/m/n/10 (\OML/cmm/m/i
+t/10 aes\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 
+Predicted\OT1/cmr/m/n/10 )) +
+ []
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.140 	 #
+         	 ,notes.align = 'l',notes = 'Italicized items deviate from the ste...
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+
+Overfull \hbox (167.18562pt too wide) in paragraph at lines 136--143
+[]\T1/aer/m/n/10 ```r t$\OML/cmm/m/it/10 prefix < \OMS/cmsy/m/n/10 ^^@\OML/cmm/
+m/it/10 dcast\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 unique\OT1/cmr/m/n/10 (\OML/cmm/
+m/it/10 gbng\OT1/cmr/m/n/10 2\OML/cmm/m/it/10 tts$\T1/aer/m/n/10 ts[,list(Phras
+e,stem,cat)]),stem cat,value.var='Phrase',fun=paste,collapse=',
+ []
+
+
+Overfull \hbox (13.90323pt too wide) in paragraph at lines 136--143
+\T1/aer/m/n/10 prefix',title='Disciplinary Pre-fixes',col.align=c(old='ccccc',n
+ew='lllll')  ,notes.align
+ []
+
+[2]
+
+LaTeX Warning: Reference `t-prefix' on page 3 undefined on input line 144.
+
+! You can't use `macro parameter character #' in vertical mode.
+l.146 #
+        Which came first?
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+
+Overfull \hbox (11.59612pt too wide) in paragraph at lines 148--149
+[]\T1/aer/m/n/10 Granger tests can help de-ter-mine which [@Thur-man:1988va; @G
+ranger:1969wx] 
+ []
+
+
+Overfull \hbox (28.55116pt too wide) in paragraph at lines 158--162
+[]\T1/aer/m/n/10 ```r ts-inspect tts() plot(x=tts()$\OML/cmm/m/it/10 y\OT1/cmr/
+m/n/10 [\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 1]\OML/cmm/m/it/10 ; y \OT1/cmr/m/n
+/10 = \OML/cmm/m/it/10 diff\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 tts\OT1/cmr/m/n/10
+ ()$\T1/aer/m/n/10 f),type='l') plot(x=tts()$\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 
+[\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 (1 :
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.168 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (3.79205pt too wide) in paragraph at lines 163--168
+[]\T1/aer/m/n/10 b<-BoxCox(tts()$\OML/cmm/m/it/10 f; BoxCox:lambda\OT1/cmr/m/n/
+10 (\OML/cmm/m/it/10 tts\OT1/cmr/m/n/10 ()$\T1/aer/m/n/10 f)) plot(tts()$\OML/c
+mm/m/it/10 y; b; type \OT1/cmr/m/n/10 =[] \OML/cmm/m/it/10 l[]\OT1/cmr/m/n/10 )
+\OML/cmm/m/it/10 plot\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 =
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.178 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (108.3375pt too wide) in paragraph at lines 169--178
+[]\T1/aer/m/n/10 ```r ts-test li-brary(forecast) li-brary(tseries) tts()$\OML/c
+mm/m/it/10 ftts\OT1/cmr/m/n/10 ()$\T1/aer/m/n/10 f fit<-tts()$\OML/cmm/m/it/10 
+fsummary\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 fit\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 
+plot\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 forecast\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
+ fit; h \OT1/cmr/m/n/10 =
+ []
+
+! Undefined control sequence.
+l.179 \begin{equation}\tag
+                          {8.1}\label{eq-8-arima} y'_{t} = c +
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in vertical mode.
+l.184 #
+        References
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+[3] (./test.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 2639 strings out of 495020
+ 37544 string characters out of 6181325
+ 89316 words of memory out of 5000000
+ 5827 multiletter control sequences out of 15000+600000
+ 9696 words of font info for 24 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 37i,4n,23p,596b,113s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmsy7.pfb>
+Output written on test.pdf (3 pages, 91395 bytes).
+PDF statistics:
+ 43 PDF objects out of 1000 (max. 8388607)
+ 29 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 5 words of extra memory for PDF output out of 10000 (max. 10000000)
+
