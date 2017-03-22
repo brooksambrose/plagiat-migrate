@@ -1,107 +1,0 @@
--156400
-Updated property [core/project].
-Brookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --go ogle-project plagiat-156400 --google-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --googlle-project plagiat-156400 --google-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-prroject plagiat-156400 --google-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-projeect plagiat-156400 --google-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiiat-156400 --google-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-1556400 --google-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 ---google-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --googgle-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --googlee-machine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-maachine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-macchine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machhine-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machinee-type f1-micro cloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro clloud[K[ABrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud[KBrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud[KBrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud[KBrookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud
-Running pre-create checks...
-(cloud) Check that the project exists
-Error with pre-create check: "Project with ID \"plagiat-156400\" not found. googleapi: Error 403: Required 'compute.projects.get' permission for 'projects/plagiat-156400', forbidden"
-Brookss-MacBook-Air:rundock bambrose$ gcloud projects list
-PROJECT_ID      NAME     PROJECT_NUMBER
-plagiat-156400  plagiat  151071305854
-Brookss-MacBook-Air:rundock bambrose$ gcloud projects listdocker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[66Pgcloud config set project plagiat-156400auth login[Kcd /Users/bambrose/Dropbox/GitHub/rundock[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[24Pgcloud auth login
-Your browser has been opened to visit:
-
-    https://accounts.google.com/o/oauth2/auth?redirect_uri=http%3A%2F%2Flocalhost%3A8085%2F&prompt=select_account&response_type=code&client_id=32555940559.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fappengine.admin+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcompute+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Faccounts.reauth&access_type=offline
-
-
-[1;33mWARNING:[0m `gcloud auth login` no longer writes application default credentials.
-If you need to use ADC, see:
-  gcloud auth application-default --help
-
-You are now logged in as [brooksambrose@gmail.com].
-Your current project is [plagiat-156400].  You can change this setting by running:
-  $ gcloud config set project PROJECT_ID
-Brookss-MacBook-Air:rundock bambrose$ gcloud auth loginprojects listdocker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgcloud projects list[Kdocker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud
-Running pre-create checks...
-(cloud) Check that the project exists
-Error with pre-create check: "Project with ID \"plagiat-156400\" not found. googleapi: Error 403: Required 'compute.projects.get' permission for 'projects/plagiat-156400', forbidden"
-Brookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kdocker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloud[K[K[K[K[K[K[K[K[K[K[K --google-machine-type f1-micro cloud
-Running pre-create checks...
-(cloud) Check that the project exists
-Error with pre-create check: "Project with ID \"plagiat\" not found. googleapi: Error 400: Failed to find project plagiat, invalid"
-Brookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat --google-machine-type f1-micro cloud[7@-156400[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgcloud auth login[Kprojects list
-PROJECT_ID      NAME     PROJECT_NUMBER
-plagiat-156400  plagiat  151071305854
-Brookss-MacBook-Air:rundock bambrose$ gcloud projects listdocker-machine create --driver google --google-project plagiat --google-machine-type f1-micro cloud[K[K[K[K[K[K[K[K[K[K[K151071305854 --google-machine-type f1-micro cloud
-Running pre-create checks...
-(cloud) Check that the project exists
-Error with pre-create check: "Project with ID \"151071305854\" not found. googleapi: Error 403: Required 'compute.projects.get' permission for 'projects/plagiat-156400', forbidden"
-Brookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project 151071305854 --google-machine-type f1-micro cloud[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K --google-machine-type f1-micro cloud
-Error setting machine configuration from flags provided: Please specify the Google Cloud Project name using the option --google-project.
-Brookss-MacBook-Air:rundock bambrose$ docker-machine --version
-docker-machine version 0.8.2, build e18a919
-Brookss-MacBook-Air:rundock bambrose$ gcloud auth application-default login
-Your browser has been opened to visit:
-
-    https://accounts.google.com/o/oauth2/auth?redirect_uri=http%3A%2F%2Flocalhost%3A8085%2F&prompt=select_account&response_type=code&client_id=764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&access_type=offline
-
-
-
-Credentials saved to file: [/Users/bambrose/.config/gcloud/application_default_credentials.json]
-
-These credentials will be used by any library that requests
-Application Default Credentials.
-Brookss-MacBook-Air:rundock bambrose$ gcloud auth application-default login[13Pdocker-machine --versioncreate --driver google --google-machine-type f1-micro cloud[30@project 151071305854 --google-[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgcloud projects list[Kdocker-machine create --driver google --google-project plagiat --google-machine-type f1-micro cloud[7@-156400[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-Running pre-create checks...
-(cloud) Check that the project exists
-(cloud) Check if the instance already exists
-Error with pre-create check: "Instance \"cloud\" already exists in zone \"us-central1-a\"."
-Brookss-MacBook-Air:rundock bambrose$ docker-machine create --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloudfoo
-Running pre-create checks...
-(cloudfoo) Check that the project exists
-(cloudfoo) Check if the instance already exists
-Creating machine...
-(cloudfoo) Generating SSH Key
-(cloudfoo) Creating host...
-(cloudfoo) Opening firewall ports
-(cloudfoo) Creating instance
-(cloudfoo) Waiting for Instance
-(cloudfoo) Uploading SSH Key
-Waiting for machine to be running, this may take a few minutes...
-Detecting operating system of created instance...
-Waiting for SSH to be available...
-Detecting the provisioner...
-Provisioning with ubuntu(systemd)...
-Error creating machine: Error running provisioning: Get https://www.googleapis.com/compute/v1/projects/plagiat-156400/zones/us-central1-a/instances/cloudfoo?alt=json: Post https://accounts.google.com/o/oauth2/token: read tcp 10.10.105.147:62482->216.58.195.77:443: read: connection reset by peer
-Brookss-MacBook-Air:rundock bambrose$ docker-machine ls
-NAME       ACTIVE   DRIVER       STATE     URL                        SWARM   DOCKER    ERRORS
-cloudfoo   -        google       Running   tcp://104.197.71.54:2376           Unknown   Unable to query docker version: Cannot connect to the docker engine endpoint
-default    -        virtualbox   Error                                        Unknown   exit status 126
-Brookss-MacBook-Air:rundock bambrose$ docker-machine r[K-rf [K[Km [K[K[K[Krm -f cloudo[Kfoo
-About to remove cloudfoo
-(cloudfoo) Deleting instance.
-(cloudfoo) Waiting for instance to delete.
-(cloudfoo) Deleting disk.
-(cloudfoo) Waiting for disk to delete.
-Successfully removed cloudfoo
-Brookss-MacBook-Air:rundock bambrose$ docker-machine rm -f cloudfools[Kcreate --driver google --google-project plagiat-156400 --google-machine-type f1-micro cloudfoo
-Running pre-create checks...
-(cloudfoo) Check that the project exists
-(cloudfoo) Check if the instance already exists
-Creating machine...
-(cloudfoo) Generating SSH Key
-(cloudfoo) Creating host...
-(cloudfoo) Opening firewall ports
-(cloudfoo) Creating instance
-(cloudfoo) Waiting for Instance
-(cloudfoo) Uploading SSH Key
-Waiting for machine to be running, this may take a few minutes...
-Detecting operating system of created instance...
-Waiting for SSH to be available...
-Detecting the provisioner...
-Provisioning with ubuntu(systemd)...
-Installing Docker...
-Copying certs to the local machine directory...
-Copying certs to the remote machine...
-Setting Docker configuration on the remote daemon...
-Error creating machine: Error running provisioning: Unable to verify the Docker daemon is listening: Maximum number of retries (10) exceeded
-Brookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ [KBrookss-MacBook-Air:rundock bambrose$ 
