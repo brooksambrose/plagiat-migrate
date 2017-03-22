@@ -41,10 +41,10 @@
 \contentsline {section}{\numberline {3.2}Temporal Sequencing Methods}{31}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}Series}{33}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}ARIMA model}{33}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Granger Causality}{34}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.3}Granger Causality}{33}{subsection.3.2.3}
 \contentsline {section}{\numberline {3.3}Results}{34}{section.3.3}
 \contentsline {section}{\numberline {3.4}Which came first?}{34}{section.3.4}
-\contentsline {section}{References}{35}{section*.6}
+\contentsline {section}{References}{34}{section*.6}
 \contentsline {chapter}{\numberline {4}Settlement of Citation Landscape}{36}{chapter.4}
 \contentsline {chapter}{\numberline {5}Subdiscipline Formation}{39}{chapter.5}
 \contentsline {section}{\numberline {5.1}Introduction}{39}{section.5.1}

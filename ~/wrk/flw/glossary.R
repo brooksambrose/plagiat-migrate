@@ -7,7 +7,7 @@ undr<-function(x) paste(' \\underline{',x,'}',sep='')
 
 ec<-function(x) strsplit(x,',')[[1]]
 
-sg<-function(x,lab,tit,sum=F,col.align=c(old='',new=''),rplc=c(old='^X\\. ',new=''),...) {
+sg<-function(x,lab='',tit,sum=F,col.align=c(old='',new=''),rplc=c(old='^X\\. ',new=''),...) {
 	require(stargazer)
 	require(magrittr)
 	if(!sum) x<-data.frame(lapply(x,gsub,pattern='&',replacement='\\&',fixed=T))
@@ -142,5 +142,6 @@ cat(
   ,'http://stackoverflow.com/questions/32123288/position-ggplot-text-in-each-corner'
   ,'http://docs.ggplot2.org/current'
   ,'https://yihui.name/knitr/hooks/#output_hooks'
+  ,'https://github.com/rstudio/bookdown/issues/173'
   ,sep='\n'
 )

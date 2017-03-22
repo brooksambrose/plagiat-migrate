@@ -1,7 +1,6 @@
-*.Rapp.history
-*.Rhistory
-*.graffle
-~/.*
-~/mat/dd
-test/*
-.Rproj.user
+# Ignore everything in this directory
+*
+# Except these files
+!.gitignore
+!README.md
+!~!architecture.png!bench/Dockerfile!hoslhs/Dockerfile!hosrhs/Dockerfile!logs

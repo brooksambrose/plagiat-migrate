@@ -2,8 +2,6 @@
 source('~/wrk/flw/init.R')
 ```
 
-\documentclass{article}
-
 # Introduction
 
 In this chapter I test the idea that the social science disciplines were established in the United States in part through a process of cognitive institutionalization. This means that the concept of each discipline could not, especially early in its history, be taken for granted as known or recognizable even among academics and intellectuals, not to mention lay audiences. An impetus for the emergence of the disciplines as professions was a dawning process of recognition of "social science" problems or objects, followed by a consistent form of categorizing the same.
@@ -76,7 +74,7 @@ ARIMA models have been criticized for abstracting from historical reality [@Isaa
 
 
 ```{r terms,eval=T,include=T}
-sg(dq,tit='Terms searched in the Google Books Ngrams Database',lab='query',col.align = c('cccccc','llllll'))
+sg(dq,tit='(\#tab:terms)Terms searched in the Google Books Ngrams Database',col.align = c('cccccc','llllll'))
 ```
 
 
@@ -92,9 +90,10 @@ This says that $I$, the change in our series, is a function of $MA$, a moving bu
 
 \begin{equation}
  (1-B)^d y_{t} = \frac{c + (1 + \theta_1 B + \cdots + \theta_q B^q)e_t}{(1-\phi_1B - \cdots - \phi_p B^p)}
+ (\#eq:arima)
 \end{equation}
 
-Where $c$ is a constant drift up or down, $theta$, $phi$, $y_{t}$, $d$, $q$, $p$, and $e_t$. $B$.
+In equation \@ref(eq:arima), $c$ is a constant drift up or down, $theta$, $phi$, $y_{t}$, $d$, $q$, $p$, and $e_t$. $B$.
 
 
 ```{r}

@@ -42,6 +42,11 @@ Wherever personal sets overlapped the intersection would form a smaller set of h
 
 While new references to the overlapping set reinforced its status they also winnowed its content. Paradoxically by begging to peers that they recognize some novel prototype scholars would have to also pay homage to the core. They could not then elevate their own interests above that of the growing stock of taken for granted knowledge, since introducing something could not garner attention without attaching it to something old.
 
+
+```{r}
+knitr::include_graphics()
+```
+
 ![Sensemaking entails discriminating first between relevent and irrelevant material, and second between relevant and productive resources.](~/prd/tex/fig/h-1sensemaking.png) 
 
 The rejoinder to the claim that nothing can overtake the core is found in Kuhnian accounts of scientific revolution. Yet the theory of referential coherence could not be further from that of paradigmatic coherence. The great advantage of using references as the currency of disciplinary communication and exchange is that their meanings can be assumed, and the inevitable disagreements over interpretation can be easily ignored so long as conversation floats just above matters of substance. Paradigmatic agreement is not culturally, that is autonomously, possible unless one makes a very strong empirical convergence assumption. Exogenous reality must weigh so heavily on the mind that the concept of interpretation can be dismissed. If however interpretive variation is the norm then we can also posit that within limits the same larder satisfies many chefs so long as each is free to cook according to her particular tastes.

@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.1.4)  18 JAN 2017 08:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.1.17)  3 FEB 2017 05:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/home/rstudio/prd/tex/00.tex
-(/home/rstudio/prd/tex/00.tex
+**00.tex
+(./00.tex
 LaTeX2e <2014/05/01>
 Babel <3.9l> and hyphenation patterns for 2 languages loaded.
 (./uclathes.cls
@@ -721,6 +721,18 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 
 LaTeX Warning: Label `introduction' multiply defined.
 
+
+LaTeX Warning: Label `references' multiply defined.
+
+
+LaTeX Warning: Label `introduction' multiply defined.
+
+
+LaTeX Warning: Label `jstor-data-for-research' multiply defined.
+
+
+LaTeX Warning: Label `survival' multiply defined.
+
 )
 \openout1 = `00.aux'.
 
@@ -840,52 +852,34 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 ] [4
 
-] (./00.toc)
-\tf@toc=\write4
-\openout4 = `00.toc'.
+] (./00.toc
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 1.
 
- [5
-
-]
-(./00.lof)
-\tf@lof=\write5
-\openout5 = `00.lof'.
-
- [6
-
-] (./00.lot)
-\tf@lot=\write6
-\openout6 = `00.lot'.
-
- [7
-
-] [8]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 7.
- (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 7.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 1.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 7.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 1.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 7.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 1.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 7.
+(Font)              <12> on input line 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 7.
+(Font)              <8> on input line 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 7.
-LaTeX Font Info:    Try loading font information for U+msa on input line 7.
+(Font)              <6> on input line 1.
+LaTeX Font Info:    Try loading font information for U+msa on input line 1.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -893,14 +887,33 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 7.
+LaTeX Font Info:    Try loading font information for U+msb on input line 1.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
+) [5
+
+] [6])
+\tf@toc=\write4
+\openout4 = `00.toc'.
+
+
+[7] (./00.lof)
+\tf@lof=\write5
+\openout5 = `00.lof'.
+
+ [8
+
+] (./00.lot)
+\tf@lot=\write6
+\openout6 = `00.lot'.
+
+ [9
+
+] [10]
 Overfull \hbox (2.38628pt too wide) in paragraph at lines 7--7
 []
  []
@@ -955,9 +968,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--7
 
  []
 
-[9
+[11
 
-] [10]
+] [12]
 CHAPTER 1.
 (./01.texpdfTeX warning (ext4): destination with the same identifier (name{page
 .1}) has been already used, duplicate ignored
@@ -967,7 +980,7 @@ l.27
       [1
 
 ] [2] [3]
-<~/prd/tex/fig/h-1sensemaking.png, id=207, 401.3394pt x 157.5486pt>
+<~/prd/tex/fig/h-1sensemaking.png, id=428, 401.3394pt x 157.5486pt>
 File: ~/prd/tex/fig/h-1sensemaking.png Graphic file (type png)
 
 <use ~/prd/tex/fig/h-1sensemaking.png>
@@ -997,7 +1010,7 @@ Package microtype Info: Loading generic settings for font family
 CHAPTER 2.
 (./02.tex [26
 
-] <~/prd/tex/fig/h-2modes.png, id=330, 313.17pt x 313.17pt>
+] <~/prd/tex/fig/h-2modes.png, id=550, 313.17pt x 313.17pt>
 File: ~/prd/tex/fig/h-2modes.png Graphic file (type png)
 
 <use ~/prd/tex/fig/h-2modes.png>
@@ -1008,28 +1021,93 @@ CHAPTER 3.
 (./03.tex [30
 
 ]
-<~/prd/tex/fig/f-3prefix1-soci-1.png, id=352, 312.16624pt x 505.89pt>
+<~/prd/tex/fig/f-3prefix1-soci-1.png, id=572, 312.16624pt x 505.89pt>
 File: ~/prd/tex/fig/f-3prefix1-soci-1.png Graphic file (type png)
 
 <use ~/prd/tex/fig/f-3prefix1-soci-1.png>
 Package pdftex.def Info: ~/prd/tex/fig/f-3prefix1-soci-1.png used on input line
- 53.
+ 51.
 (pdftex.def)             Requested size: 312.16548pt x 505.89645pt.
  [31] [32 </home/rstudio/prd/tex/fig/f-3prefix1-soci-1.png>]
-Overfull \hbox (112.1568pt too wide) in paragraph at lines 80--93
+! Undefined control sequence.
+\FrameCommand ...argin \hskip -\fboxsep \colorbox 
+                                                  {shadecolor}{#1}\hskip -\f...
+l.74 \begin{kframe}
+                   
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Not in outer par mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.76 \begin{table}[!htbp]
+                          \centering
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+\@xfloat ...@fltovf \fi \global \setbox \@currbox 
+                                                  \color@vbox \normalcolor \...
+l.76 \begin{table}[!htbp]
+                          \centering
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \color@vbox 
+l.76 \begin{table}[!htbp]
+                          \centering
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+
+Overfull \hbox (159.7497pt too wide) in paragraph at lines 79--92
  [][] 
  []
 
-[33]
+! Undefined control sequence.
+\FrameCommand ...argin \hskip -\fboxsep \colorbox 
+                                                  {shadecolor}{#1}\hskip -\f...
+l.93 \end{kframe}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-LaTeX Warning: Reference `t-prefix' on page 34 undefined on input line 123.
+! Undefined control sequence.
+\FrameCommand ...argin \hskip -\fboxsep \colorbox 
+                                                  {shadecolor}{#1}\hskip -\f...
+l.93 \end{kframe}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-[34]pdfTeX warning (ext4): destination with the same identifier (name{refs}) ha
+
+LaTeX Warning: Reference `t-prefix' on page 33 undefined on input line 123.
+
+[33]pdfTeX warning (ext4): destination with the same identifier (name{refs}) ha
 s been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.154 \hypertarget{refs}{}
-                          ) [35]
+                          ) [34] [35]
 CHAPTER 4.
 (./04.tex [36
 
@@ -1062,15 +1140,9 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 33.
  (./00.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 33.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 33.
+Package rerunfilecheck Info: File `00.out' has not changed.
+(rerunfilecheck)             Checksum: 486737F59A3B376C5AE2FEC0E690BE47;4461.
 
-
-Package rerunfilecheck Warning: File `00.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `00.out':
-(rerunfilecheck)             Before: B734F98392F5086E4C336B8D024D53A8;2321
-(rerunfilecheck)             After:  486737F59A3B376C5AE2FEC0E690BE47;4461.
 
 LaTeX Warning: There were undefined references.
 
@@ -1080,13 +1152,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 33.
  ) 
 Here is how much of TeX's memory you used:
- 9284 strings out of 495020
- 137431 string characters out of 6181325
- 244656 words of memory out of 5000000
- 11999 multiletter control sequences out of 15000+600000
+ 9317 strings out of 495020
+ 137859 string characters out of 6181324
+ 246907 words of memory out of 5000000
+ 12032 multiletter control sequences out of 15000+600000
  75295 words of font info for 122 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 37i,10n,35p,355b,381s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,10n,35p,333b,381s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/en
 c/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/s
 hare/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
@@ -1099,10 +1171,10 @@ lic/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/
 texmf/fonts/type1/public/lm/lmro12.pfb></usr/share/texmf/fonts/type1/public/lm/
 lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/
 fonts/type1/public/lm/lmtt12.pfb>
-Output written on 00.pdf (61 pages, 443438 bytes).
+Output written on 00.pdf (63 pages, 450227 bytes).
 PDF statistics:
- 577 PDF objects out of 1000 (max. 8388607)
- 490 compressed objects within 5 object streams
- 161 named destinations out of 1000 (max. 500000)
- 24864 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 760 PDF objects out of 1000 (max. 8388607)
+ 669 compressed objects within 7 object streams
+ 162 named destinations out of 1000 (max. 500000)
+ 25136 words of extra memory for PDF output out of 29859 (max. 10000000)
 

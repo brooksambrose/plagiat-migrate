@@ -173,14 +173,14 @@ RUN apt-get update \
 	&& make)
 
 ## Install latexpand
-RUN apt-get update \
-&& apt-get install -y --no-install-recommends \
-	perl-doc
-RUN (cd ~/ \
-	&& git clone https://gitlab.com/latexpand/latexpand \
-	&& cd latexpand \
-	&& make \
-	&& mv dist/latexpand/latexpand /usr/local/bin)
+#RUN apt-get update \
+#&& apt-get install -y --no-install-recommends \
+#	perl-doc
+#RUN (cd ~/ \
+#	&& git clone https://gitlab.com/latexpand/latexpand \
+#	&& cd latexpand \
+#	&& make \
+#	&& mv dist/latexpand/latexpand /usr/local/bin)
 
 ## Install scholdoc https://github.com/timtylin/scholdoc/blob/master/INSTALL.md
 #RUN apt-get install -y --no-install-recommends \
@@ -188,6 +188,23 @@ RUN (cd ~/ \
 #	cabal-install \
 #&& cabal update \
 #&& cabal install scholdoc
+
+#last minute
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	servr \
+	RJSONIO \
+	RColorBrewer \
+&& r -e 'warnings()'
+
+#last minute
+RUN export `cat etc/environment | grep MRAN` \
+&& install2.r --repos $MRAN --deps TRUE \
+	bookdown \
+	shiny \
+	htmltools \
+	miniUI \
+&& r -e 'warnings()'
 
 
 ### ~fin~ ###
