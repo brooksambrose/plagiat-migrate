@@ -5,7 +5,7 @@
 !README.md
 !~
 !architecture.png
-!bench/Dockerfile
-!hoslhs/Dockerfile
-!hosrhs/Dockerfile
+!bench
+!hoslhs
+!hosrhs
 !logs
