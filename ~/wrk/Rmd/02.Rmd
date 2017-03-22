@@ -1,0 +1,497 @@
+```{r init,message=F,warning=F,include=F}
+source('~/wrk/flw/init.R')
+```
+
+#A lexical sample
+
+To observe some of these high level institutions, I draw sets of journals from four social science disciplines–anthropology, sociology, economics, and political science–and I draw these in blocks from the same publisher. Journals were selected from the disciplinary affiliations signaled in their titles. From a JSTOR master list of archived materials, journals were selected if they contained any of the disciplinary prefixes anth-, soci-, econ-, and poli-. {{Though not all journals that are affiliated with a discipline signal this with a word containing the signature prefix, those that do are affiliated with a high degree of accuracy. Soci is an exception, and journals like the Royal Society of Statistics [madeup] are excluded.}} This list was cross referenced with the TR WOK database.
+
+Following these trends in the use of prefixes, we develop a sample or journals that use them under the assumption that these signal domain relevance for the disciplines.
+
+```{r master2wok-f}
+master2wok[,`:=`(j=!is.na(jix),p=Prefix!='Out')]
+
+```
+
+```{r}
+#sg(
+(sfr<-round(prop.table(ftable(master2wok[,list(usa,j,p)]))*100,3))
+#,sum=F,lab="Sampling Frame Reduction")
+```
+
+We reduce the sampling frame in several steps. First, we require that the journal publisher be located in the United States. Second, we require that the journal be included in the JSTOR database. Third, we require that the journal title contain, with some exceptions, at least one of the prefixes `r # paste(dpfx,'-',sep='') %>% paste(collapse=', ') %>% tolower()`. Of the `r # nicen(nrow(master2wok))` journals in the WOK master list, these criteria limit the sample to `r # nicen(master2wok[,sum(usa&j&p)])` titles or less than half of a percent of the original sampling frame.
+
+```{r t-sframe}
+sg(
+	master2wok[usa&j&p,list(Journal=paste(jstor,collapse=', ')),by=Prefix]
+	,lab='t-sframe'
+	,title='All the Journals'
+	,col.align = c(old='cc',new='p{1in}p{4in}')
+)
+```
+
+
+```{r}
+m2w<-master2wok[,.N,keyby=Prefix]
+m2w[,p:=round(prop.table(N)*100,3)]
+m2w<-m2w[master2wok[,list(Example=toTitleCase(tolower(sample(SO,1)))),keyby=Prefix]]
+m2w[is.na(Prefix),Prefix:='Non-US out-sample'] %>% setkey(Prefix)
+m2w['Out',Prefix:='English non-prefix out-sample'] %>% setkey(Prefix)
+setorder(m2w,-N)
+m2w
+```
+
+```{r}
+dpfx<-c('ANTH', 'SOCI', 'ECON', 'POLI','PSYC')
+lex<-data.table(t=sort(unique(unlist(strsplit(tolower(master2wok$SO),split='[^a-z0-9]+')))))
+lex[,Tag:=sapply(t,FUN=tag,srch = tolower(dpfx))] %>% setkey(Tag)
+lex<-lex[,list(terms=paste(t,collapse=', ')),keyby=Tag]
+```
+
+
+```{r}
+sg(m2w,lab='t-m2w',title = 'Journals in the Web of Knowledge Master List',col.align = c(old='cccc',new='lrrl'))
+```
+
+The WOK master as of `r # format(attributes(master2wok)$date.downloaded,'%D')` listed `r # nicen(nrow(master2wok),0)` titles. It is not clear what sample of historical population of journals this represents, but it is a substantial substantive starting point. 
+
+```{r wok2dbl-f}
+wok2dbl<-wok2dbl.f(
+	dir=inn$wok0041
+	,out=out$wok0041
+	,sample.batches=F
+	,sample.size=50
+	,save=T
+	,verbose=T
+	,check.for.saved.output=c.f.s.o.def
+)
+col.ord<-attributes(wok2dbl)$col.ord
+```
+
+```{r dbl2inspect-f}
+system.time(x<-dbl2inspect.f(wok2dbl))
+```
+
+```{r wok2dbl-cleaning}
+##DROP
+setkey(wok2dbl,field)
+low<-c('C1','CA','DI','EI','ID','PN','RI','RP','SU') # low observation count
+wokfld[low]
+unu<- c('PT','PA','PI','JI','J9','SN','GA') # unuseful or redundant fields
+wokfld[unu]
+wok2dbl<-wok2dbl[!c(low ,unu)] 
+
+
+##RECODE
+setkey(wok2dbl,field)
+invisible(wok2dbl['SO',val:=gsub('(-FIRST SERIES)|(-NEW SERIES)','',val)]);setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('SO','JOURNAL OF SOCIAL FORCES'),val:='SOCIAL FORCES']);setkey(wok2dbl,field,val)
+
+invisible(wok2dbl[list('PU','M I T PRESS'),val:='MIT PRESS']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PU','WILEY-BLACKWELL PUBLISHING, INC'),val:='WILEY-BLACKWELL']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PU','OXFORD UNIV PRESS INC'),val:='OXFORD UNIV PRESS']) ; setkey(wok2dbl,field,val)
+
+invisible(wok2dbl[list('PD','APR-JUN'),val:='APR']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JAN-APR'),val:='JAN']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JAN-MAR'),val:='JAN']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JUL-OCT'),val:='JUL']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JUL-SEP'),val:='JUL']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JUN-SEP'),val:='JUN']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','MAY 23'),val:='MAY']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','OCT-DEC'),val:='OCT']) ; setkey(wok2dbl,field,val)
+
+# Variations in page numbers
+invisible(wok2dbl[c('BP','EP'),val:=sub('^[ANPU]','',val)]) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[expand.grid(c('BP'),unique(grep('[A-Za-z]',wok2dbl[c('BP')]$val,value=T))),val:=as.character(as.numeric(as.roman(val)))]) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[expand.grid(c('EP'),unique(grep('[A-Za-z]',wok2dbl[c('EP')]$val,value=T))),val:=as.character(as.numeric(as.roman(val)))]) ; setkey(wok2dbl,field,val)
+
+```
+
+```{r dbl2dbw-f}
+attributes(wok2dbl)$col.ord<-col.ord
+dbl2dbw<-dbl2dbw.f(wok2dbl)
+```
+
+```{r dbl2dbw-imputing}
+# 3% of records are missing a publication month
+dbl2dbw[is.na(dbl2dbw$PD),PD:=sample(na.omit(dbl2dbw$PD),sum(is.na(dbl2dbw$PD)))]
+```
+
+The source data are `r try(nicen(nrow(wok2dbl)))` observations on `r try(nicen(length(unique(wok2dbl[,id]))))` documents spanning `r try(nicen(diff(range(wok2dbl[list(id,'PY'),as.integer(val)]))))` years.
+
+```{r dbl2dbw-deriv}
+# secondary or derivative measurements
+dbl2dbw[,db:='wok']
+
+## disciplines
+dbl2dbw[,anth:=grepl('anth',SO,ignore.case=T)]
+dbl2dbw[,soci:=grepl('soci',SO,ignore.case=T)]
+dbl2dbw[,econ:=grepl('[eo][ck]on',SO,ignore.case=T)]
+dbl2dbw[,poli:=grepl('poli',SO,ignore.case=T)]
+dc<-dbl2dbw[,.N,by=c('anth','soci','econ','poli')]
+dc[,N:=NULL]
+setkey(dbl2dbw,anth,soci,econ,poli)
+for(i in 1:nrow(dc)) dbl2dbw[dc[i],disc:=paste(colnames(dc)[unlist(dc[i])],collapse='')]
+dbl2dbw[,disc:=factor(disc)]
+
+## publisher private/public
+dbl2dbw[,putyp:=factor(NA,levels=sort(c('University','Private','Professional')))]
+setkey(dbl2dbw,PU)
+dbl2dbw[c('AMER AGRICULTURAL ECONOMICS ASSOC','AMER ECONOMIC ASSOC','AMER SOCIOLOGICAL ASSOC'),putyp:='Professional']
+dbl2dbw[c('MIT PRESS','OXFORD UNIV PRESS','UNIV CHICAGO PRESS','UNIV NORTH CAROLINA PRESS'),putyp:='University']
+dbl2dbw[c('SAGE PUBLICATIONS INC','SPRINGER','WILEY-BLACKWELL'),putyp:='Private']
+
+## age of citations
+
+```
+
+```{r wok2dbl-summary1}
+graphics.off()
+setkey(dbl2dbw,PY)
+top5<-unique(dbl2dbw[list(1900),SO])
+setkey(dbl2dbw,DT,SO)
+so_disc_dt_nr_py<-ggplot(data=dbl2dbw[expand.grid(c(
+	'Article'
+	#,'Book Review'
+	,'Review'
+),top5)]
+,mapping = aes(
+	x = PY
+	,y = NR
+	,color=DT)) +
+	geom_jitter(
+		alpha=I(1/3)
+		#		,shape=1
+	) +
+	geom_hline(yintercept = 100,color='darkgray') +
+	facet_grid(disc+SO~.
+						 ,scales='free_y'
+						 ,space='free') +
+	theme(
+		strip.text.y=element_text(angle=0)
+		#	,legend.position="none"
+	)
+so_disc_dt_nr_py
+```
+
+```{r f-what}
+nut<-ggplot(data=dbl2dbw[expand.grid(
+	c('Article'
+		,'Book Review'
+		,'Review'
+	),top5),.N,by=c('SO','disc','DT','PY')]
+	,mapping = aes(PY,fill=DT,weight=N)
+) +
+	geom_histogram(binwidth=1) +
+	facet_grid(disc+SO~.
+						 # ,scales='free_y'
+						 ,space='free'
+	) +
+	theme(
+		strip.text.y=element_text(angle=0)
+		,legend.position="none"
+	)
+nut + scale_fill_brewer(palette='Set1')
+```
+
+```{r jstor-wok-comparison}
+setkey(jstor2dbw,SO)
+setkey(dbl2dbw,SO)
+jwc<-rbindlist(list(dbl2dbw[list(top5),list(SO,DT,PY,db)],jstor2dbw[list(top5),list(SO,DT,PY,db)]))
+jwc[,db:=factor(db)]
+jwc[,DT:=factor(DT,levels=c('Article','Review','edi','Book Review','mis','nws'))]
+jwc[,PY:=as.double(PY)]
+setkey(jwc,db,DT)
+```
+
+Each study depends on a database of records of the contents of journals. This database is compiled from two sources, JSTOR and the Thompson Reuters Web of Knowledge Social Science Citation Index (WOK).
+
+#Sources
+
+##Google Books
+
+##Thompson Reuters Web of Knowledge
+
+##JSTOR Data for Research
+
+#Research Databases
+
+##Sample Selection
+
+##Entity Recognition
+
+##Formats
+
+###Edgelist
+
+```{r dbl2bel-f}
+load(paste(out$wok0099,'fuzzy-sets.RData',sep=.Platform$file.sep))
+dbl2bel<-dbl2bel.f(
+	wok2dbl
+	,out=out$wok0041
+	,check.for.saved.output=cfso
+	,saved_recode=fuzzy.sets
+	)
+dbl2bel
+```
+
+```{r bel2mel-f}
+dbl2bel<-dbl2bel[!(zpend|zdup|zloop),list(ut,zcr)]
+bel2mel<-bel2mel.f(
+	dbl2bel
+	,out=out$wok0041
+	,check.for.saved.output=cfso
+	,type='crel'
+	,write2disk=F
+)
+bel2mel
+```
+
+![Mode Projections](~/prd/tex/fig/h-2modes.png)
+
+###Flat + k-Clique
+
+```{r mel2comps-f}
+mel2comps<-mel2comps.f(bel2mel,out=out$wok0041)
+```
+
+```{r comps2cos-f}
+invisible(comps2cos.f(
+	mel2comps.dir=paste(out$wok0041,'mel2comps',sep=.Platform$file.sep)
+	,cosparallel.path='~/cosparallel-code/cos'
+	,threads=3
+	))
+```
+
+```{r cos2kcliqdb-f}
+cos<-cos2kcliqdb.f(
+	mel2comps.dir=paste(out$wok0041,'mel2comps',sep=.Platform$file.sep)
+	,out=out$wok0041
+	)
+```
+
+```{r kcliqdb2flat.f}
+cliqdb2flat.f<-function(kcliqdb,type=c('utel','crel')){
+	require(data.table)
+	ret<-list()
+for(i in type)	if(i%in%names(kcliqdb)) {
+	ret[[i]]<-data.table(id=unique(unlist(kcliqdb[[i]]$orig)),vlo=0,hlo=0,key='id')
+	ret[[i]][,vlo:=table(unlist(lapply(kcliqdb[[i]]$orig,function(x) unique(unlist(x)))))]
+	for(j in names(kcliqdb[[i]]$orig)) {
+		t<-table(unlist(kcliqdb[[i]]$orig[[j]]))
+		ret[[i]][list(as.integer(names(t))),hlo:=hlo+t]
+	}
+	ret[[i]][,hlo:=hlo-vlo]
+	ret[[i]][,tlo:=table(unlist(kcliqdb[[i]]$orig))]
+}
+	ret
+}
+cliqdb2flat<-cliqdb2flat.f(cos)
+```
+
+
+###Survival
+
+#Drawer
+
+```{r kcliqdb2viz-f}
+kcliqdb2viz.f(cos,paste(out$wok0041,'mel2comps',sep=.Platform$file.sep),out=out$wok0041)
+```
+
+```{r unorganized}
+hulls1<-list()
+for(i in unique(unlist(gut4_1$crel$ut))) hulls1[[i]]<-which(V(gut4_1g)$name%in%sort(unique(unlist(gut4_1$crel[sapply(gut4_1$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
+
+pdf('out/mel/test/1/gut4_1.pdf')
+plot(graph.adjacency(sapply(hulls1,function(x) sapply(hulls1,function(y) length(intersect(x,y)))),mode='upper',diag=F,weighted=T))
+dev.off()
+
+samp1<-c('WOS:000204992100005','WOS:000205009200002')
+pdf('out/mel/test/1/gut4_1g-zcr.pdf')
+plot(
+	gut4_1g
+	,mark.groups=hulls1[samp1]
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+)
+dev.off()
+write.table(matrix(as.integer(factor(get.edgelist(gut4_1g))),ncol=2),file='out/mel/test/1/1.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+
+gut4_2g<-graph.edgelist(as.matrix(gut4_2$crel[,list(as.character(cr1),as.character(cr2))],ncol=2),F)
+g<-decompose.graph(gut4_2g)
+sg<-sapply(g,vcount)
+table(sg)
+gut4_2g<-g[[which(sg==max(sg))]]
+
+hulls2<-list()
+for(i in unique(unlist(gut4_2$crel$ut))) hulls2[[i]]<-which(V(gut4_2g)$name%in%sort(unique(unlist(gut4_2$crel[sapply(gut4_2$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
+
+pdf('out/mel/test/2/gut4_2.pdf')
+plot(graph.adjacency(sapply(hulls2,function(x) sapply(hulls2,function(y) length(intersect(x,y)))),mode='upper',diag=F,weighted=T))
+dev.off()
+
+samp2<-c('WOS:000204682200001','WOS:000204694300003','WOS:000204681700001')
+pdf('out/mel/test/2/gut4_2g-zcr.pdf')
+plot(
+	gut4_2g
+	,mark.groups=hulls2[samp2]
+	,vertex.label=1:length(V(gut4_2g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	,vertex.color=c('white','gray')[(1:length(V(gut4_2g))%in%unique(unlist(hulls2[samp2])))+1]
+)
+dev.off()
+write.table(matrix(as.integer(factor(get.edgelist(gut4_2g))),ncol=2),file='out/mel/test/2/2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+```
+
+```{r plot_cosresults}
+lout<-layout.auto(gut4_1g,repulserad=(vcount(gut4_1g)^3))
+pdf('out/mel/test/gut4_1g-zcr-cos.pdf')
+mxcol<-max(as.integer(sub('k([0-9]+).*','\\1',names(cos$orig))))
+lapply(names(cos$orig),function(j){
+	cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$orig[[j]])))-2
+	try(
+		plot(
+			gut4_1g
+			,mark.groups=lapply(cos$orig[[j]],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+			,mark.expand=0
+			,mark.col=rainbow(mxcol,start=.7,end=.1,alpha=.3)[cols]
+			,mark.border=rainbow(mxcol,start=.7,end=.1,alpha=1)[cols]	,vertex.label=1:length(V(gut4_1g))
+			,vertex.size=5
+			,vertex.label.cex=.5
+			,edge.color=gray(0,.1)
+			#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+			,main=j
+			,layout=lout
+		)
+	)
+})
+dev.off()
+pdf('out/mel/test/gut4_1g-zcr-cos-strict.pdf')
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$strict)))-2
+mark.col<-rainbow(max(cols),start=.7,end=.1,alpha=1)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+mark.border<-rainbow(max(cols),start=.7,end=.1,alpha=.3)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+plot(
+	gut4_1g
+	,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=5
+	,mark.col=mark.col
+	,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=lout
+)
+dev.off()
+pdf('out/mel/test/gut4_1g-zcr-cos-strict.pdf')
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$strict)))-2
+mark.col<-terrain.colors(max(cols))[cols] #rainbow(max(cols),start=.7,end=.1,alpha=1)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+mark.border<-mark.col #rainbow(max(cols),start=.7,end=.1,alpha=.3)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+plot(
+	gut4_1g
+	,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=5
+	,mark.col=mark.col
+	,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=lout
+)
+dev.off()
+```
+
+```{r 3d-test}
+z<-do.call(rbind,mapply(function(k,c,l) cbind(k,c,l),k=as.integer(sub('k([0-9]+).*','\\1',names(cos$strict))),c=as.integer(factor(names(cos$strict))),l=cos$strict))
+V(gut4_1g)$maxc<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'c']
+V(gut4_1g)$maxk<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'k']
+if(F) {rglplot(
+	gut4_1g
+	#,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	#,mark.expand=5
+	#,mark.col=mark.col
+	#,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.color=terrain.colors(max(cols))[V(gut4_1g)$maxk-2]
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=cbind(lout,V(gut4_1g)$maxk)
+)}
+chulls<-lapply(lapply(split(lout,f=V(gut4_1g)$maxc),matrix,ncol=2),function(x) convex.hull(x)$rescoords)
+chulls<-mapply(function(a,b) cbind(a,b[1]),a=chulls,b=split(V(gut4_1g)$maxk,f=V(gut4_1g)$maxc))
+open3d()
+#rgl.open()
+#rgl.bg(color="gray")
+#rgl.light()
+tercol<-sapply(chulls,function(x) terrain.colors(max(cols))[x[1,3]-2])
+for(i in 1:(length(chulls)-1)) {cat(i,"");try(shade3d(extrude3d(chulls[[i]][,-3],thickness=unique(chulls[[i]][,3]),smooth=T),col=tercol[i]))}
+movie3d(spin3d(axis=c(0,0,1), rpm=2), duration=30)
+#rgl.close()
+
+### original 
+cos$origi<-lapply(cos$orig,function(x) sapply(x,function(i) which(V(gut4_1g)$name%in%levels(cos)[i])))
+cos$stricti<-lapply(cos$strict,function(x) sapply(x,function(i) which(V(gut4_1g)$name%in%levels(cos)[i])))
+for(i in 1:(length(cos$stricti))) {cat(i,"");try(shade3d(extrude3d(lout[cos$stricti,],thickness=unique(chulls[[i]][,3]),smooth=T),col=tercol[i]))}
+
+resize.Polygon <- function(coords, size=1.0) {
+	tmp <- scale(coords[,], scale=rep(1/size, 2))
+	scaled <- t(tmp) + attr(tmp, 'scaled:center')
+	closed <- t(cbind(scaled, scaled[,1]))
+	closed
+}
+
+ks<-as.integer(sub('k([0-9]+).*','\\1',names(cos$origi)))
+cs<-terrain.colors(max(ks))[ks]
+open3d()
+mapply(function(memb,k,clr,scl) try(shade3d(extrude3d(
+	resize.Polygon(convex.hull(lout[memb,])$rescoords,size=scl),smooth=T,thickness=k),col=clr)),memb=cos$origi,k=ks,clr=cs,scl=1-(as.integer(factor(ks))-1)/1000)
+play3d(spin3d(axis=c(0,0,1), rpm=2), duration=30)
+
+```
+
+
+```{r test1}
+jnut<-ggplot() +
+	geom_bar(data=jwc['jstor',.N,by=c('SO','DT','PY','db')],aes(x = PY-.2,y = N,fill=DT),width=.4,stat='identity') + 
+	geom_bar(data=jwc['wok',.N,by=c('SO','DT','PY','db')],aes(x = PY+.2,y=N,fill=DT),width=.4,stat='identity') + 
+	facet_grid(SO~PY,scales='free',space='free') +
+	theme(
+		strip.text.y=element_text(angle=0)
+		,strip.text.x=element_text(angle=90)
+		,legend.title=element_blank()
+		,axis.text.x=element_blank()
+		,axis.title.x=element_blank()
+		,axis.ticks.x=element_blank()
+		,panel.background=element_blank()
+		#		,legend.position="none"
+	)
+jnut + scale_fill_brewer(palette='Set1')
+```
+
+```{r test2}
+dbl2dbw['Article',list(med=quantile(NR,.5),avg=mean(NR)),by=c('PY')]
+
+setkey(dbl2dbw,SO,DT)
+t1<-dbl2dbw[,list(list(data.table(rbind(round(prop.table(table(DT)),3))))),keyby=c('disc','SO')]
+t1<-data.table(t1[,list(disc,SO)],rbindlist(t1$V1))
+cbind(table(dbl2dbw$NR))
+
+setkey(wok2dbl,id,field)
+invisible(wok2dbl[list(unique(id),'PY'),plot(table(val),xlab='Publication Year',ylab='Frequency',type='l')])
+setkey(wok2dbl,field)
+invisible(SO<-wok2dbl['SO',.N,keyby=val])
+SO
+```

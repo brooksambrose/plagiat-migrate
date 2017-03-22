@@ -3,9 +3,13 @@
 # Except these files
 !.gitignore
 !README.md
-!~
-!architecture.png
-!bench/Dockerfile
-!hoslhs/Dockerfile
-!hosrhs/Dockerfile
-!logs
+!index.Rmd
+!01.Rmd
+!02.Rmd
+!03.Rmd
+!04.Rmd
+!05.Rmd
+!06.Rmd
+!07.Rmd
+!08.Rmd
+!09.Rmd

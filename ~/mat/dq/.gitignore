@@ -3,9 +3,7 @@
 # Except these files
 !.gitignore
 !README.md
-!~
-!architecture.png
-!bench/Dockerfile
-!hoslhs/Dockerfile
-!hosrhs/Dockerfile
-!logs
+!fuzzy-sets.RData
+!mstr2mstr
+!string_comparison_metrics.R
+!wokfields.txt

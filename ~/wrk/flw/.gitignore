@@ -3,9 +3,8 @@
 # Except these files
 !.gitignore
 !README.md
-!~
-!architecture.png
-!bench/Dockerfile
-!hoslhs/Dockerfile
-!hosrhs/Dockerfile
-!logs
+!flw.Rproj
+!glossary.R
+!init.R
+!knit.R
+!outline.md
