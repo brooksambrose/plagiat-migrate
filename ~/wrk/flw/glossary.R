@@ -7,6 +7,20 @@ undr<-function(x) paste(' \\underline{',x,'}',sep='')
 
 ec<-function(x) strsplit(x,',')[[1]]
 
+#' Title
+#'
+#' @param x 
+#' @param lab 
+#' @param tit 
+#' @param sum 
+#' @param col.align 
+#' @param rplc 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 sg<-function(x,lab='',tit,sum=F,col.align=c(old='',new=''),rplc=c(old='^X\\. ',new=''),...) {
 	require(stargazer)
 	require(magrittr)
