@@ -208,7 +208,10 @@ RUN . etc/environment \
 	DT \
 	citr \
 	svglite \
-&& r -e '{webshot::install_phantomjs();warnings()}'
+&& r -e 'warnings()'
+
+# could not install:
+# webshot::install_phantomjs()
 
 #last minute
 RUN r -e '{devtools::install_github("coolbutuseless/lipsum");warnings()}'
