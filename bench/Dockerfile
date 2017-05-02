@@ -1,4 +1,4 @@
-FROM rocker/verse:3.3.2
+FROM rocker/verse:3.3.3
 MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 
 ### Heavier stuff ###
@@ -214,7 +214,7 @@ RUN . etc/environment \
 # webshot::install_phantomjs()
 
 #last minute
-RUN r -e '{devtools::install_github("coolbutuseless/lipsum");warnings()}'
+RUN r -e '{devtools::install_github("coolbutuseless/lipsum");devtools::install_github("rstudio/bookdown");warnings()}'
 
 
 ### ~fin~ ###
