@@ -1,4 +1,4 @@
-FROM rocker/verse:3.3.2
+FROM rocker/verse:3.3.3
 MAINTAINER "Brooks Ambrose" brooksambrose@berkeley.edu
 
 ### Heavier stuff ###
@@ -216,6 +216,11 @@ RUN . etc/environment \
 #last minute
 RUN r -e '{devtools::install_github("coolbutuseless/lipsum");warnings()}'
 
+#last minute
+RUN . etc/environment \
+&& install2.r --repos $MRAN --deps TRUE \
+	pander \
+&& r -e 'warnings()'
 
 ### ~fin~ ###
 
