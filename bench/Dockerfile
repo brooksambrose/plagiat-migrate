@@ -214,7 +214,7 @@ RUN . etc/environment \
 # webshot::install_phantomjs()
 
 #last minute
-RUN r -e '{devtools::install_github("coolbutuseless/lipsum");warnings()}'
+RUN r -e '{devtools::install_github("coolbutuseless/lipsum");devtools::install_github("rstudio/bookdown");warnings()}'
 
 #last minute
 RUN . etc/environment \
