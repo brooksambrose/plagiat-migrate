@@ -35,7 +35,7 @@ sg<-function(x,lab='',tit,sum=F,col.align=c(old='',new=''),rplc=c(old='^X\\. ',n
 }
 
 #WOK Field Tags, https://images.webofknowledge.com/WOKRS58B4/help/WOK/hs_wos_fieldtags.html
-wokfld<-data.table(read.table('~/mat/dq/wokfields.txt',sep = '\t',header = TRUE),key='field')
+#wokfld<-data.table(read.table('~/mat/dq/wokfields.txt',sep = '\t',header = TRUE),key='field')
 
 # While silly, we'll use chemistry's particles, elements, compounds, and mixtures
 
